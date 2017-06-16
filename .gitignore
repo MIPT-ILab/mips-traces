@@ -1,0 +1,8 @@
+#####################
+# Ignore all except these
+*
+!.gitignore
+!Makefile
+!README.txt
+!LICENSE
+!*.s
