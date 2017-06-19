@@ -4,8 +4,7 @@ MIPS binutils should be installed and have the following shortcuts:
     mips-ld          is a linker for MIPS object files
     mips-objdump    dumps content of MIPS binary files (also disassebly instructions)
 
-Please refer to mipt-mips wiki or just run GNU make in libs/mips-binutils.
-
+MIPT-MIPS wiki has an instruction [how to get and build MIPS binutils](https://github.com/MIPT-ILab/mipt-mips/wiki/MIPS-binutils)
 
 In order to create MIPS binary file do the following steps:
 
