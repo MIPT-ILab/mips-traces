@@ -3,6 +3,6 @@
 *
 !.gitignore
 !Makefile
-!README.txt
+!README.md
 !LICENSE
 !*.s
