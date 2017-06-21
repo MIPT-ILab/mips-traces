@@ -4,9 +4,6 @@
 # Copyright 2012 uArchSim iLab Project
 #
 
-# specifying relative path to the TRUNK
-TRUNK= ../../
-
 # create a list of all assembly files in the current folder
 ASM_FILES = $(wildcard *.s)
 
