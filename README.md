@@ -1,8 +1,8 @@
 MIPS binutils should be installed and have the following shortcuts:
 
-    `mips-as`          is an assembler for MIPS ISA
-    `mips-ld`          is a linker for MIPS object files
-    `mips-objdump`     dumps content of MIPS binary files (also disassebly instructions)
+     mips-as           is an assembler for MIPS ISA
+     mips-ld           is a linker for MIPS object files
+     mips-objdump      dumps content of MIPS binary files (also disassebly instructions)
 
 MIPT-MIPS wiki has an instruction [how to get and build MIPS binutils](https://github.com/MIPT-ILab/mipt-mips/wiki/MIPS-binutils)
 
