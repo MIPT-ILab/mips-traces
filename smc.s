@@ -1,4 +1,5 @@
-
+# Copyright (C) 2017 Yarovoy Danil
+# this program is free software
 .globl __start
 
 .data
@@ -11,13 +12,14 @@ __start:
 
     j main
 
+#instructions that we want to get after modification
 new1:
     add $t1, $t2, 0xa5
 new2:
     add $t3, $t1, 0x5
 new3:
     sub $t1, $t2, $t2
-
+#print fail message
 fail:	
     li $v0, 4	# syscall 4 (print_str)
 	la $a0, fm
@@ -35,56 +37,66 @@ main:
 #--------------------------------------------
 
     
-
+#gap  with 10 instructions
 fill1_10:
 
-    la $t1, new1
-    lw $t0, 0($t1)
-    la $t1, smc1_10
-
-    sw $t0, 0($t1)
-
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-
     
+    la $t1, new1    # t1 = &(new_instruction)
+    lw $t0, 0($t1)  # t0 = new_instruction
+    la $t1, smc1_10 # t1 = &(old_instruction)
+    
+    sw $t0, 0($t1)  # *(old_instruction) = new_insrtuction
+
+    #gap 
+    add $s0, $s1, $s2
+    add $s0, $s1, $s2
+    add $s0, $s1, $s2
+    add $s0, $s1, $s2
+    add $s0, $s1, $s2
+    add $s0, $s1, $s2
+    add $s0, $s1, $s2
+    add $s0, $s1, $s2
+    add $s0, $s1, $s2
+    add $s0, $s1, $s2
+
+    #old instruction   
 smc1_10:
     add $t1, $t2, 0x5
 
-    #check modification
-    la $s2, smc1_10
-    lw $s2, 0($s2)
-    beq $t0, $s2, fill1_4
+    #check modification. if wasn't  modificated then print fail message  
+    la $s2, smc1_10 # s2 = &(modificated_instruction)
+    lw $s2, 0($s2)  # s2 = modificated_instruction
+    beq $t0, $s2, fill1_4 # if new_insrtuction == modificated_instruction 
+                          # then continue test with another gaps
+                          # else print fail message
     jal fail
+    #continue testing another gap
 #-----------------------------------------------
-fill1_4:
-    la $t1, smc1_4
 
+#gap with 4 instructions
+fill1_4:
+
+    #modificate
+    la $t1, smc1_4 
     sw $t0, 0($t1)
 
-
+    #gap
     add $s0, $s1, $s2
     add $s0, $s1, $s2
     add $s0, $s1, $s2
     add $s0, $s1, $s2
 
-
+    #old instruction
 smc1_4:
     add $t1, $t2, 0x5
 
+    #check modification
     la $s2, smc1_4
     lw $s2, 0($s2)
     beq $t0, $s2, fill1_3
     jal fail
 #------------------------------------------------
+#gap with 3 instructions
 fill1_3:
     la $t1, smc1_3
 
@@ -99,11 +111,13 @@ fill1_3:
 smc1_3:
     add $t1, $t2, 0x5
 
+    #check modification
     la $s2, smc1_3
     lw $s2, 0($s2)
     beq $t0, $s2, fill1_2
     jal fail
 #-------------------------------------------------
+#gap with 2 instructions
 fill1_2:
     la $t1, smc1_2
 
@@ -122,6 +136,7 @@ smc1_2:
     beq $t0, $s2, fill1_1
     jal fail
 #--------------------------------------------------
+#gap with 1 instruction
 fill1_1:
     la $t1, smc1_1
 
@@ -139,6 +154,7 @@ smc1_1:
     beq $t0, $s2, fill1_0
     jal fail
 #----------------------------------------------------
+#gap with 0 instruction
 fill1_0:
     
     la $t1, smc1_0
@@ -160,6 +176,7 @@ smc1_0:
 
 #---------------------------------------------------
 #   test modification of register
+#   the concept the same as for previous modification
 #---------------------------------------------------
 
 fill2_10:
@@ -413,6 +430,9 @@ smc3_0:
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
+#new branches
+#they pointed to the next test with another gap
+#so if modification will be successful, then testing go futher without printing fail message
 new4_10:
     j fill4_4
 new4_4:
@@ -432,12 +452,14 @@ new4_0:
 
 fill4_10:
 
-    la $t1, new4_10
+    # load jump with new target at modifiable section
+    la $t1, new4_10 
     lw $t0, 0($t1)
     la $t1, smc4_10
 
     sw $t0, 0($t1)
 
+    #gap
     add $s0, $s1, $s2
     add $s0, $s1, $s2
     add $s0, $s1, $s2
@@ -449,9 +471,14 @@ fill4_10:
     add $s0, $s1, $s2
     add $s0, $s1, $s2
 
-    
+#modifiable code
+#--------------
 smc4_10:
     j next1
+#--------------
+
+# if it modification haven't been successful, then print fail message
+# else go to the next section with another gap
 
 next1:
     la $s2, smc4_10
@@ -459,6 +486,7 @@ next1:
     beq $t0, $s2, fill4_4
     jal fail
 #-----------------------------------------------
+
 fill4_4:
     la $t1, new4_4
     lw $t0, 0($t1)
