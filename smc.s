@@ -1,5 +1,39 @@
+# MIPT-MIPS Simulator
+# Self-modifying code stress test for MIPS CPU
+#
 # Copyright (C) 2017 Yarovoy Danil
-# this program is free software
+# This program is a part of MIPT-MIPS source code
+# distributed under terms of MIT License
+#
+# MIPT-MIPS web site: http://mipt-ilab.github.io/mipt-mips/
+#
+
+# We check 3 types of modification of ALU instructions:
+# * Modification of immediate (addi %r1, %r2, $5 -> addi %r1, %r2, $a5)
+# * Modification of register (addi %r1, %r2, $5 -> addi %r3, %r1, $5)
+# * Modification of opcode (add %r1, %r2, %r2 -> sub %r1, %r2, %r2)
+#
+# After that, we check modification of unconditional jump targets
+#
+# Each check begins with the simplest case:
+# modifying instruction is executed ~10 instructions
+# before instruction it modifies, than the gap becomes
+# closer: 4, 3, 2, 1, 0 filling instructions.
+# We use different gaps to check behavior
+# on different pipeline depths.
+#
+# The SMC subroutine template goes as follows
+#   fill_TYPE_GAPLEN:
+#       la $t1, NEW_LABEL   # get address of new instruction
+#       lw $t0, 0($t1)      # read new instruction
+#       la $t1, OLD_LABEL   # get address of overwritten instruction
+#       sw $t0, 0($t1)      # overwrite instruction
+#     # gap of GAPLEN instruction goes here
+#   OLD_LABEL:
+#       add $t1, $t2, 0x5
+#     # Checking subroutine. If it fails, we jump to `fail' label
+#     # to stop simulation
+
 .globl __start
 
 .data
