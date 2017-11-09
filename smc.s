@@ -31,33 +31,64 @@
 #     # gap of GAPLEN instruction goes here
 #   OLD_LABEL:
 #       add $t1, $t2, 0x5
-#     # Checking subroutine. If it fails, we jump to `fail' label
-#     # to stop simulation
+#     # Checking subroutine. If it fails, we jump `fail' label
+#     # to print the fail message
 
 .globl __start
 
 .data
-fm:	.asciiz "Failed test\n"
+
+# fail_msg_ messages for immediate modification
+fail_msg_immediate_gap10: .asciiz "Failed modification of immediate with 10 gap\n"
+fail_msg_immediate_gap4: .asciiz "Failed modification of immediate with 4 gap\n"
+fail_msg_immediate_gap3: .asciiz "Failed modification of immediate with 3 gap\n"
+fail_msg_immediate_gap2: .asciiz "Failed modification of immediate with 2 gap\n"
+fail_msg_immediate_gap1: .asciiz "Failed modification of immediate with 1 gap\n"
+fail_msg_immediate_gap0: .asciiz "Failed modification of immediate with 0 gap\n"
+
+# fail_msg_ messages for register modification 
+fail_msg_register_gap10: .asciiz "Failed modification of register with 10 gap\n"
+fail_msg_register_gap4: .asciiz "Failed modification of register with 4 gap\n"
+fail_msg_register_gap3: .asciiz "Failed modification of register with 3 gap\n"
+fail_msg_register_gap2: .asciiz "Failed modification of register with 2 gap\n"
+fail_msg_register_gap1: .asciiz "Failed modification of register with 1 gap\n"
+fail_msg_register_gap0: .asciiz "Failed modification of register with 0 gap\n"
+
+# fail_msg_ messages for opcode modification 
+fail_msg_opcode_gap10: .asciiz "Failed modification of opcode with 10 gap\n"
+fail_msg_opcode_gap4: .asciiz "Failed modification of opcode with 4 gap\n"
+fail_msg_opcode_gap3: .asciiz "Failed modification of opcode with 3 gap\n"
+fail_msg_opcode_gap2: .asciiz "Failed modification of opcode with 2 gap\n"
+fail_msg_opcode_gap1: .asciiz "Failed modification of opcode with 1 gap\n"
+fail_msg_opcode_gap0: .asciiz "Failed modification of opcode with 0 gap\n"
+
+# fail_msg_ messages for branch modification 
+fail_msg_branch_gap10: .asciiz "Failed modification of branch with 10 gap\n"
+fail_msg_branch_gap4: .asciiz "Failed modification of branch with 4 gap\n"
+fail_msg_branch_gap3: .asciiz "Failed modification of branch with 3 gap\n"
+fail_msg_branch_gap2: .asciiz "Failed modification of branch with 2 gap\n"
+fail_msg_branch_gap1: .asciiz "Failed modification of branch with 1 gap\n"
+fail_msg_branch_gap0: .asciiz "Failed modification of branch with 0 gap\n"
 
 .text
 
-
 __start: 
 
-    j main
-
+    #j main #start with main part
+    j fill_branch_gap10
 #instructions that we want to get after modification
-new1:
-    add $t1, $t2, 0xa5
-new2:
-    add $t3, $t1, 0x5
-new3:
+new_immediate:
+    addi $t1, $t2, 0xa5
+new_register:
+    addi $t3, $t1, 0x5
+new_opcode:
     sub $t1, $t2, $t2
+
 #print fail message
 fail:	
     li $v0, 4	# syscall 4 (print_str)
-	la $a0, fm
-	syscall
+    #la $a0, fm
+    syscall
     jr $ra
 	#li $v0, 10	# syscall 10 (exit)
     #syscall
@@ -72,12 +103,15 @@ main:
 
     
 #gap  with 10 instructions
-fill1_10:
+fill_immediate_gap10:
 
-    
-    la $t1, new1    # t1 = &(new_instruction)
+    #initialize t2 and t3 for checking modification
+    add $t2, $zero, $zero
+    addi $t3, $zero, 0xa5
+
+    la $t1, new_immediate    # t1 = &(new_instruction)
     lw $t0, 0($t1)  # t0 = new_instruction
-    la $t1, smc1_10 # t1 = &(old_instruction)
+    la $t1, smc_immediate_gap10 # t1 = &(old_instruction)
     
     sw $t0, 0($t1)  # *(old_instruction) = new_insrtuction
 
@@ -94,24 +128,24 @@ fill1_10:
     add $s0, $s1, $s2
 
     #old instruction   
-smc1_10:
-    add $t1, $t2, 0x5
+smc_immediate_gap10:
+    addi $t1, $t2, 0x5
 
-    #check modification. if wasn't  modificated then print fail message  
-    la $s2, smc1_10 # s2 = &(modificated_instruction)
-    lw $s2, 0($s2)  # s2 = modificated_instruction
-    beq $t0, $s2, fill1_4 # if new_insrtuction == modificated_instruction 
-                          # then continue test with another gaps
-                          # else print fail message
+
+    beq $t1, $t3, fill_immediate_gap4 # if t1 == 0xa5 (modification is successful) 
+                                        # then continue test with another gaps
+                                        # else print fail message
+    
+    la $a0, fail_msg_immediate_gap10 # a0 = &(fail_message) (argument for printing) 
     jal fail
     #continue testing another gap
 #-----------------------------------------------
 
 #gap with 4 instructions
-fill1_4:
+fill_immediate_gap4:
 
     #modificate
-    la $t1, smc1_4 
+    la $t1, smc_immediate_gap4 
     sw $t0, 0($t1)
 
     #gap
@@ -121,18 +155,18 @@ fill1_4:
     add $s0, $s1, $s2
 
     #old instruction
-smc1_4:
-    add $t1, $t2, 0x5
+smc_immediate_gap4:
+    addi $t1, $t2, 0x5
 
     #check modification
-    la $s2, smc1_4
-    lw $s2, 0($s2)
-    beq $t0, $s2, fill1_3
+    beq $t1, $t3, fill_immediate_gap3    
+   
+    la $a0, fail_msg_immediate_gap4 
     jal fail
 #------------------------------------------------
 #gap with 3 instructions
-fill1_3:
-    la $t1, smc1_3
+fill_immediate_gap3:
+    la $t1, smc_immediate_gap3
 
     sw $t0, 0($t1)
 
@@ -142,18 +176,18 @@ fill1_3:
     add $s0, $s1, $s2
 
 
-smc1_3:
-    add $t1, $t2, 0x5
+smc_immediate_gap3:
+    addi $t1, $t2, 0x5
 
     #check modification
-    la $s2, smc1_3
-    lw $s2, 0($s2)
-    beq $t0, $s2, fill1_2
+    beq $t1, $t3, fill_immediate_gap2 
+
+    la $a0, fail_msg_immediate_gap3 
     jal fail
 #-------------------------------------------------
 #gap with 2 instructions
-fill1_2:
-    la $t1, smc1_2
+fill_immediate_gap2:
+    la $t1, smc_immediate_gap2
 
     sw $t0, 0($t1)
 
@@ -162,17 +196,18 @@ fill1_2:
     add $s0, $s1, $s2
 
 
-smc1_2:
-    add $t1, $t2, 0x5
+smc_immediate_gap2:
+    addi $t1, $t2, 0x5
 
-    la $s2, smc1_2
-    lw $s2, 0($s2)
-    beq $t0, $s2, fill1_1
+    beq $t1, $t3, fill_immediate_gap1 
+   
+    
+    la $a0, fail_msg_immediate_gap2 
     jal fail
 #--------------------------------------------------
 #gap with 1 instruction
-fill1_1:
-    la $t1, smc1_1
+fill_immediate_gap1:
+    la $t1, smc_immediate_gap1
 
     sw $t0, 0($t1)
 
@@ -180,27 +215,27 @@ fill1_1:
     add $s0, $s1, $s2
 
 
-smc1_1:
-    add $t1, $t2, 0x5
+smc_immediate_gap1:
+    addi $t1, $t2, 0x5
 
-    la $s2, smc1_1
-    lw $s2, 0($s2)
-    beq $t0, $s2, fill1_0
+    beq $t1, $t3, fill_immediate_gap0 
+
+    la $a0, fail_msg_immediate_gap1
     jal fail
 #----------------------------------------------------
 #gap with 0 instruction
-fill1_0:
+fill_immediate_gap0:
     
-    la $t1, smc1_0
+    la $t1, smc_immediate_gap0
 
     sw $t0, 0($t1)
 
-smc1_0:
-    add $t1, $t2, 0x5
+smc_immediate_gap0:
+    addi $t1, $t2, 0x5
 
-    la $s2, smc1_0
-    lw $s2, 0($s2)
-    beq $t0, $s2, fill2_10
+    beq $t1, $t3, fill_immediate_gap2 
+
+    la $a0, fail_msg_immediate_gap0 
     jal fail
 #---------------------------------------------------
 #
@@ -213,11 +248,14 @@ smc1_0:
 #   the concept the same as for previous modification
 #---------------------------------------------------
 
-fill2_10:
+fill_register_gap10:
 
-    la $t1, new2
+    #initialize t4 = 0x5 for checking modification
+    add $t4, $zero, 0x5
+
+    la $t1, new_register
     lw $t0, 0($t1)
-    la $t1, smc2_10
+    la $t1, smc_register_gap10
 
     sw $t0, 0($t1)
 
@@ -232,18 +270,20 @@ fill2_10:
     add $s0, $s1, $s2
     add $s0, $s1, $s2
 
-    
-smc2_10:
-    add $t1, $t2, 0x5
+    #expected instruction: addi $t3, $t1, 0x5
+smc_register_gap10:
+    addi $t1, $t2, 0x5
 
+    
     #check modification
-    la $s2, smc2_10
-    lw $s2, 0($s2)
-    beq $t0, $s2, fill2_4
+    sub $t3, $t3, $t1 # t3 = t3 - t1 (expected: t3 = 0x5)
+    beq $t3, $t4, fill_register_gap4 # if (t3 == 0x5) test next
+    
+    la $a0, fail_msg_register_gap10
     jal fail
 #-----------------------------------------------
-fill2_4:
-    la $t1, smc2_4
+fill_register_gap4:
+    la $t1, smc_register_gap4
 
     sw $t0, 0($t1)
 
@@ -253,17 +293,18 @@ fill2_4:
     add $s0, $s1, $s2
     add $s0, $s1, $s2
 
+    #expected instruction: addi $t3, $t1, 0x5
+smc_register_gap4:
+    addi $t1, $t2, 0x5
+    
+    sub $t3, $t3, $t1 # t3 = t3 - t1 (expected: t3 = 0x5)
+    beq $t3, $t4, fill_register_gap4 # if (t3 == 0x5) test next
 
-smc2_4:
-    add $t1, $t2, 0x5
-
-    la $s2, smc2_4
-    lw $s2, 0($s2)
-    beq $t0, $s2, fill2_3
+    la $a0, fail_msg_register_gap4
     jal fail
 #------------------------------------------------
-fill2_3:
-    la $t1, smc2_3
+fill_register_gap3:
+    la $t1, smc_register_gap3
 
     sw $t0, 0($t1)
 
@@ -272,17 +313,18 @@ fill2_3:
     add $s0, $s1, $s2
     add $s0, $s1, $s2
 
+    #expected instruction: addi $t3, $t1, 0x5
+smc_register_gap3:
+    addi $t1, $t2, 0x5
 
-smc2_3:
-    add $t1, $t2, 0x5
+    sub $t3, $t3, $t1 # t3 = t3 - t1 (expected: t3 = 0x5)
+    beq $t3, $t4, fill_register_gap4 # if (t3 == 0x5) test next
 
-    la $s2, smc2_3
-    lw $s2, 0($s2)
-    beq $t0, $s2, fill2_2
+    la $a0, fail_msg_register_gap3
     jal fail
 #-------------------------------------------------
-fill2_2:
-    la $t1, smc2_2
+fill_register_gap2:
+    la $t1, smc_register_gap2
 
     sw $t0, 0($t1)
 
@@ -290,44 +332,47 @@ fill2_2:
     add $s0, $s1, $s2
     add $s0, $s1, $s2
 
+    #expected instruction: addi $t3, $t1, 0x5
+smc_register_gap2:
+    addi $t1, $t2, 0x5
 
-smc2_2:
-    add $t1, $t2, 0x5
+    sub $t3, $t3, $t1 # t3 = t3 - t1 (expected: t3 = 0x5)
+    beq $t3, $t4, fill_register_gap4 # if (t3 == 0x5) test next
 
-    la $s2, smc2_2
-    lw $s2, 0($s2)
-    beq $t0, $s2, fill2_1
+    la $a0, fail_msg_register_gap2
     jal fail
 #--------------------------------------------------
-fill2_1:
-    la $t1, smc2_1
+fill_register_gap1:
+    la $t1, smc_register_gap1
 
     sw $t0, 0($t1)
 
 
     add $s0, $s1, $s2
 
+    #expected instruction: addi $t3, $t1, 0x5
+smc_register_gap1:
+    addi $t1, $t2, 0x5
 
-smc2_1:
-    add $t1, $t2, 0x5
+    sub $t3, $t3, $t1 # t3 = t3 - t1 (expected: t3 = 0x5)
+    beq $t3, $t4, fill_register_gap4 # if (t3 == 0x5) test next
 
-    la $s2, smc2_1
-    lw $s2, 0($s2)
-    beq $t0, $s2, fill2_0
+    la $a0, fail_msg_register_gap1
     jal fail
 #----------------------------------------------------
-fill2_0:
+fill_register_gap0:
     
-    la $t1, smc2_0
+    la $t1, smc_register_gap0
 
     sw $t0, 0($t1)
+    #expected instruction: addi $t3, $t1, 0x5
+smc_register_gap0:
+    addi $t1, $t2, 0x5
 
-smc2_0:
-    add $t1, $t2, 0x5
+    sub $t3, $t3, $t1 # t3 = t3 - t1 (expected: t3 = 0x5)
+    beq $t3, $t4, fill_register_gap4 # if (t3 == 0x5) test next
 
-    la $s2, smc2_0
-    lw $s2, 0($s2)
-    beq $t0, $s2, fill3_10
+    la $a0, fail_msg_register_gap0
     jal fail
 
 #---------------------------------------------------
@@ -340,11 +385,14 @@ smc2_0:
 #   test modification of opcode
 #---------------------------------------------------
 
-fill3_10:
+fill_opcode_gap10:
 
-    la $t1, new3
+    #initialize t2 = 0x5 for checking modification
+    addi $t2, $zero, 0x5
+
+    la $t1, new_opcode
     lw $t0, 0($t1)
-    la $t1, smc3_10
+    la $t1, smc_opcode_gap10
 
     sw $t0, 0($t1)
 
@@ -359,18 +407,17 @@ fill3_10:
     add $s0, $s1, $s2
     add $s0, $s1, $s2
 
-    
-smc3_10:
+    #expected instruction: sub $t1, $t2, $t2 (t1 = t2 - t2 = 0)
+smc_opcode_gap10:
     add $t1, $t2, $t2
 
-    #check modification
-    la $s2, smc3_10
-    lw $s2, 0($s2)
-    beq $t0, $s2, fill3_4
+    beq $t1, $zero, fill_opcode_gap4
+
+    la $a0, fail_msg_opcode_gap10
     jal fail
 #-----------------------------------------------
-fill3_4:
-    la $t1, smc3_4
+fill_opcode_gap4:
+    la $t1, smc_opcode_gap4
 
     sw $t0, 0($t1)
 
@@ -380,17 +427,17 @@ fill3_4:
     add $s0, $s1, $s2
     add $s0, $s1, $s2
 
-
-smc3_4:
+    #expected instruction: sub $t1, $t2, $t2 (t1 = t2 - t2 = 0)
+smc_opcode_gap4:
     add $t1, $t2, $t2
+    
+    beq $t1, $zero, fill_opcode_gap3
 
-    la $s2, smc3_4
-    lw $s2, 0($s2)
-    beq $t0, $s2, fill3_3
+    la $a0, fail_msg_opcode_gap4
     jal fail
 #------------------------------------------------
-fill3_3:
-    la $t1, smc3_3
+fill_opcode_gap3:
+    la $t1, smc_opcode_gap3
 
     sw $t0, 0($t1)
 
@@ -399,17 +446,17 @@ fill3_3:
     add $s0, $s1, $s2
     add $s0, $s1, $s2
 
-
-smc3_3:
+    #expected instruction: sub $t1, $t2, $t2 (t1 = t2 - t2 = 0)
+smc_opcode_gap3:
     add $t1, $t2, $t2
 
-    la $s2, smc3_3
-    lw $s2, 0($s2)
-    beq $t0, $s2, fill3_2
+    beq $t1, $zero, fill_opcode_gap2
+
+    la $a0, fail_msg_opcode_gap3
     jal fail
 #-------------------------------------------------
-fill3_2:
-    la $t1, smc3_2
+fill_opcode_gap2:
+    la $t1, smc_opcode_gap2
 
     sw $t0, 0($t1)
 
@@ -417,47 +464,48 @@ fill3_2:
     add $s0, $s1, $s2
     add $s0, $s1, $s2
 
-
-smc3_2:
+    #expected instruction: sub $t1, $t2, $t2 (t1 = t2 - t2 = 0)
+smc_opcode_gap2:
     add $t1, $t2, $t2
 
-    la $s2, smc3_2
-    lw $s2, 0($s2)
-    beq $t0, $s2, fill3_1
+    beq $t1, $zero, fill_opcode_gap1
+
+    la $a0, fail_msg_opcode_gap2
     jal fail
 #--------------------------------------------------
-fill3_1:
-    la $t1, smc3_1
+fill_opcode_gap1:
+    la $t1, smc_opcode_gap1
 
     sw $t0, 0($t1)
 
 
     add $s0, $s1, $s2
 
-
-smc3_1:
+    #expected instruction: sub $t1, $t2, $t2 (t1 = t2 - t2 = 0)
+smc_opcode_gap1:
     add $t1, $t2, $t2
 
-    la $s2, smc3_1
-    lw $s2, 0($s2)
-    beq $t0, $s2, fill3_0
+    beq $t1, $zero, fill_opcode_gap0
+
+    la $a0, fail_msg_opcode_gap1
     jal fail
 #----------------------------------------------------
-fill3_0:
+fill_opcode_gap0:
     
-    la $t1, smc3_0
+    la $t1, smc_opcode_gap0
 
     sw $t0, 0($t1)
 
-smc3_0:
+    #expected instruction: sub $t1, $t2, $t2 (t1 = t2 - t2 = 0)
+smc_opcode_gap0:
     add $t1, $t2, $t2
 
-    la $s2, smc3_0
-    lw $s2, 0($s2)
-    beq $t0, $s2, fill4_10
+    beq $t1, $zero, fill_branch_gap10
+
+    la $a0, fail_msg_opcode_gap0
     jal fail
     
-    j fill4_10
+    j fill_branch_gap10
 #----------------------------------------------------
 #
 #----------------------------------------------------
@@ -467,29 +515,29 @@ smc3_0:
 #new branches
 #they pointed to the next test with another gap
 #so if modification will be successful, then testing go futher without printing fail message
-new4_10:
-    j fill4_4
-new4_4:
-    j fill4_3
-new4_3:
-    j fill4_2
-new4_2:
-    j fill4_1
-new4_1:
-    j fill4_0
-new4_0:
-    j end
+new_target_gap10:
+    j fill_branch_gap4
+new_target_gap4:
+    j fill_branch_gap3
+new_target_gap3:
+    j fill_branch_gap2
+new_target_gap2:
+    j fill_branch_gap1
+new_target_gap1:
+    j fill_branch_gap0
+new_target_gap0:
+    j exit
 
 #---------------------------------------------------
 #   test modification of branch
 #---------------------------------------------------
 
-fill4_10:
+fill_branch_gap10:
 
     # load jump with new target at modifiable section
-    la $t1, new4_10 
+    la $t1, new_target_gap10 
     lw $t0, 0($t1)
-    la $t1, smc4_10
+    la $t1, smc_branch_gap10
 
     sw $t0, 0($t1)
 
@@ -507,24 +555,23 @@ fill4_10:
 
 #modifiable code
 #--------------
-smc4_10:
-    j next1
+smc_branch_gap10:
+    j next_gap10
 #--------------
 
 # if it modification haven't been successful, then print fail message
 # else go to the next section with another gap
 
-next1:
-    la $s2, smc4_10
-    lw $s2, 0($s2)
-    beq $t0, $s2, fill4_4
+next_gap10:
+
+    la $a0, fail_msg_branch_gap10   
     jal fail
 #-----------------------------------------------
 
-fill4_4:
-    la $t1, new4_4
+fill_branch_gap4:
+    la $t1, new_target_gap4
     lw $t0, 0($t1)
-    la $t1, smc4_4
+    la $t1, smc_branch_gap4
 
     sw $t0, 0($t1)
 
@@ -535,19 +582,18 @@ fill4_4:
     add $s0, $s1, $s2
 
 
-smc4_4:
-    j next2
+smc_branch_gap4:
+    j next_gap4
 
-next2:
-    la $s2, smc4_4
-    lw $s2, 0($s2)
-    beq $t0, $s2, fill4_3
+next_gap4:
+
+    la $a0, fail_msg_branch_gap4  
     jal fail
 #------------------------------------------------
-fill4_3:
-    la $t1, new4_3
+fill_branch_gap3:
+    la $t1, new_target_gap3
     lw $t0, 0($t1)
-    la $t1, smc4_3
+    la $t1, smc_branch_gap3
 
     sw $t0, 0($t1)
 
@@ -557,19 +603,18 @@ fill4_3:
     add $s0, $s1, $s2
 
 
-smc4_3:
-    j next3
+smc_branch_gap3:
+    j next_gap3
 
-next3:
-    la $s2, smc4_3
-    lw $s2, 0($s2)
-    beq $t0, $s2, fill4_2
+next_gap3:
+
+    la $a0, fail_msg_branch_gap3 
     jal fail
 #-------------------------------------------------
-fill4_2:
-    la $t1, new4_2
+fill_branch_gap2:
+    la $t1, new_target_gap2
     lw $t0, 0($t1)
-    la $t1, smc4_2
+    la $t1, smc_branch_gap2
 
     sw $t0, 0($t1)
 
@@ -578,19 +623,18 @@ fill4_2:
     add $s0, $s1, $s2
 
 
-smc4_2:
-    j next4
+smc_branch_gap2:
+    j next_gap2
 
-next4:
-    la $s2, smc4_2
-    lw $s2, 0($s2)
-    beq $t0, $s2, fill4_1
+next_gap2:
+
+    la $a0, fail_msg_branch_gap2 
     jal fail
 #--------------------------------------------------
-fill4_1:
-    la $t1, new4_1
+fill_branch_gap1:
+    la $t1, new_target_gap1
     lw $t0, 0($t1)
-    la $t1, smc4_1
+    la $t1, smc_branch_gap1
 
     sw $t0, 0($t1)
 
@@ -598,29 +642,27 @@ fill4_1:
     add $s0, $s1, $s2
 
 
-smc4_1:
-    j next5
+smc_branch_gap1:
+    j next_gap1
 
-next5:
-    la $s2, smc4_1
-    lw $s2, 0($s2)
-    beq $t0, $s2, fill4_0
+next_gap1:
+
+    la $a0, fail_msg_branch_gap1 
     jal fail
 #----------------------------------------------------
-fill4_0:
-    la $t1, new4_0
+fill_branch_gap0:
+    la $t1, new_target_gap0
     lw $t0, 0($t1)
-    la $t1, smc4_0
+    la $t1, smc_branch_gap0
 
     sw $t0, 0($t1)
 
-smc4_0:
-    j next6
+smc_branch_gap0:
+    j next_gap0
 
-next6:
-    la $s2, smc4_0
-    lw $s2, 0($s2)
-    beq $t0, $s2, exit
+next_gap0:
+
+    la $a0, fail_msg_branch_gap0 
     jal fail
 
 
@@ -630,5 +672,7 @@ next6:
 
 
 exit:
-    nop
+    
+    li $v0, 10	# syscall 10 (exit)
+    syscall
 
