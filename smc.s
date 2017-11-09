@@ -115,16 +115,16 @@ fill_immediate_gap10:
     sw $t0, 0($t1)  # *(old_instruction) = new_insrtuction
 
     #gap 
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
 
     #old instruction   
 smc_immediate_gap10:
@@ -148,10 +148,10 @@ fill_immediate_gap4:
     sw $t0, 0($t1)
 
     #gap
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
 
     #old instruction
 smc_immediate_gap4:
@@ -170,9 +170,9 @@ fill_immediate_gap3:
     sw $t0, 0($t1)
 
 
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
 
 
 smc_immediate_gap3:
@@ -191,8 +191,8 @@ fill_immediate_gap2:
     sw $t0, 0($t1)
 
 
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
 
 
 smc_immediate_gap2:
@@ -211,7 +211,7 @@ fill_immediate_gap1:
     sw $t0, 0($t1)
 
 
-    add $s0, $s1, $s2
+    add $zero, $s1, $s2
 
 
 smc_immediate_gap1:
@@ -258,16 +258,16 @@ fill_register_gap10:
 
     sw $t0, 0($t1)
 
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
 
     #expected instruction: addi $t3, $t1, 0x5
 smc_register_gap10:
@@ -287,10 +287,10 @@ fill_register_gap4:
     sw $t0, 0($t1)
 
 
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
 
     #expected instruction: addi $t3, $t1, 0x5
 smc_register_gap4:
@@ -308,9 +308,9 @@ fill_register_gap3:
     sw $t0, 0($t1)
 
 
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
 
     #expected instruction: addi $t3, $t1, 0x5
 smc_register_gap3:
@@ -328,8 +328,8 @@ fill_register_gap2:
     sw $t0, 0($t1)
 
 
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
 
     #expected instruction: addi $t3, $t1, 0x5
 smc_register_gap2:
@@ -347,7 +347,7 @@ fill_register_gap1:
     sw $t0, 0($t1)
 
 
-    add $s0, $s1, $s2
+    add $zero, $s1, $s2
 
     #expected instruction: addi $t3, $t1, 0x5
 smc_register_gap1:
@@ -395,16 +395,16 @@ fill_opcode_gap10:
 
     sw $t0, 0($t1)
 
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
 
     #expected instruction: sub $t1, $t2, $t2 (t1 = t2 - t2 = 0)
 smc_opcode_gap10:
@@ -421,10 +421,10 @@ fill_opcode_gap4:
     sw $t0, 0($t1)
 
 
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
 
     #expected instruction: sub $t1, $t2, $t2 (t1 = t2 - t2 = 0)
 smc_opcode_gap4:
@@ -441,9 +441,9 @@ fill_opcode_gap3:
     sw $t0, 0($t1)
 
 
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
 
     #expected instruction: sub $t1, $t2, $t2 (t1 = t2 - t2 = 0)
 smc_opcode_gap3:
@@ -460,8 +460,8 @@ fill_opcode_gap2:
     sw $t0, 0($t1)
 
 
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
 
     #expected instruction: sub $t1, $t2, $t2 (t1 = t2 - t2 = 0)
 smc_opcode_gap2:
@@ -478,7 +478,7 @@ fill_opcode_gap1:
     sw $t0, 0($t1)
 
 
-    add $s0, $s1, $s2
+    add $zero, $s1, $s2
 
     #expected instruction: sub $t1, $t2, $t2 (t1 = t2 - t2 = 0)
 smc_opcode_gap1:
@@ -541,16 +541,16 @@ fill_branch_gap10:
     sw $t0, 0($t1)
 
     #gap
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
 
 #modifiable code
 #--------------
@@ -575,10 +575,10 @@ fill_branch_gap4:
     sw $t0, 0($t1)
 
 
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
 
 
 smc_branch_gap4:
@@ -597,9 +597,9 @@ fill_branch_gap3:
     sw $t0, 0($t1)
 
 
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
 
 
 smc_branch_gap3:
@@ -618,8 +618,8 @@ fill_branch_gap2:
     sw $t0, 0($t1)
 
 
-    add $s0, $s1, $s2
-    add $s0, $s1, $s2
+    add $zero, $s1, $s2
+    add $zero, $s1, $s2
 
 
 smc_branch_gap2:
@@ -638,7 +638,7 @@ fill_branch_gap1:
     sw $t0, 0($t1)
 
 
-    add $s0, $s1, $s2
+    add $zero, $s1, $s2
 
 
 smc_branch_gap1:
