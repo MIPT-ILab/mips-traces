@@ -74,8 +74,7 @@ fail_msg_branch_gap0: .asciiz "Failed modification of branch with 0 gap\n"
 
 __start: 
 
-    #j main #start with main part
-    j fill_branch_gap10
+    j main #start with main part
 #instructions that we want to get after modification
 new_immediate:
     addi $t1, $t2, 0xa5
@@ -233,7 +232,7 @@ fill_immediate_gap0:
 smc_immediate_gap0:
     addi $t1, $t2, 0x5
 
-    beq $t1, $t3, fill_immediate_gap2 
+    beq $t1, $t3, fill_register_gap10 
 
     la $a0, fail_msg_immediate_gap0 
     jal fail
@@ -298,7 +297,7 @@ smc_register_gap4:
     addi $t1, $t2, 0x5
     
     sub $t3, $t3, $t1 # t3 = t3 - t1 (expected: t3 = 0x5)
-    beq $t3, $t4, fill_register_gap4 # if (t3 == 0x5) test next
+    beq $t3, $t4, fill_register_gap3 # if (t3 == 0x5) test next
 
     la $a0, fail_msg_register_gap4
     jal fail
@@ -318,7 +317,7 @@ smc_register_gap3:
     addi $t1, $t2, 0x5
 
     sub $t3, $t3, $t1 # t3 = t3 - t1 (expected: t3 = 0x5)
-    beq $t3, $t4, fill_register_gap4 # if (t3 == 0x5) test next
+    beq $t3, $t4, fill_register_gap2 # if (t3 == 0x5) test next
 
     la $a0, fail_msg_register_gap3
     jal fail
@@ -337,7 +336,7 @@ smc_register_gap2:
     addi $t1, $t2, 0x5
 
     sub $t3, $t3, $t1 # t3 = t3 - t1 (expected: t3 = 0x5)
-    beq $t3, $t4, fill_register_gap4 # if (t3 == 0x5) test next
+    beq $t3, $t4, fill_register_gap1 # if (t3 == 0x5) test next
 
     la $a0, fail_msg_register_gap2
     jal fail
@@ -355,7 +354,7 @@ smc_register_gap1:
     addi $t1, $t2, 0x5
 
     sub $t3, $t3, $t1 # t3 = t3 - t1 (expected: t3 = 0x5)
-    beq $t3, $t4, fill_register_gap4 # if (t3 == 0x5) test next
+    beq $t3, $t4, fill_register_gap0 # if (t3 == 0x5) test next
 
     la $a0, fail_msg_register_gap1
     jal fail
@@ -370,7 +369,7 @@ smc_register_gap0:
     addi $t1, $t2, 0x5
 
     sub $t3, $t3, $t1 # t3 = t3 - t1 (expected: t3 = 0x5)
-    beq $t3, $t4, fill_register_gap4 # if (t3 == 0x5) test next
+    beq $t3, $t4, fill_opcode_gap10 # if (t3 == 0x5) test next
 
     la $a0, fail_msg_register_gap0
     jal fail
