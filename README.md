@@ -3,14 +3,16 @@ MIPS test traces for MIPT-MIPS Simulator.
 
 ## Traces
 
-* `add.s`: simplest test for add instruction
-* `factorial.s`: recursive implementation of factorial
-* `fib.s`: loop implementation of Fibonacci numbers
-* `memtrace_based.s`: a data memory stress based on random memory access pattern
-* `move.s`: just a single move pseudo-instruction
-* `smc.s`: self-modifying MIPS code, modification is performed 'in-flight'
-* `static_arrays.s`: example of a memory-located static array
-* `tt.core.s` is a part of SPIM S20 MIPS Simulator. Instructions which are not supported by MIPT-MIPS are commented out. SPIM source files are distributed under Free BSD license (see file header). Copyright (c) 1990-2010, James R. Larus. All rights reserved.
+| Name | Description
+|:--|:-----------|
+| **add.s** | simplest test for add instruction
+| **factorial.s** | recursive implementation of factorial
+| **fib.s** | loop implementation of Fibonacci numbers
+| **memtrace_based.s** | a data memory stress based on random memory access pattern
+| **move.s** | just a single move pseudo-instruction
+| **smc.s** | self-modifying MIPS code, modification is performed 'in-flight'
+| **static_arrays.s** | example of a memory-located static array
+| **tt.core.s** | is a part of SPIM S20 MIPS Simulator. Instructions which are not supported by MIPT-MIPS are commented out. SPIM source files are distributed under Free BSD license (see file header). Copyright (c) 1990-2010, James R. Larus. All rights reserved.
 
 ## Getting Started
 
