@@ -8,7 +8,8 @@ MIPS test traces for MIPT-MIPS Simulator.
 | **add.s** | simplest test for add instruction
 | **factorial.s** | recursive implementation of factorial
 | **fib.s** | loop implementation of Fibonacci numbers
-| **memtrace_based.s** | a data memory stress based on random memory access pattern
+| **dc_ic_stress.s** | a data and instruction memory stress based on random memory access pattern
+| **dc_stress.s** | a data-only memory stress based on random memory access pattern
 | **move.s** | just a single move pseudo-instruction
 | **smc.s** | self-modifying MIPS code, modification is performed 'in-flight'
 | **static_arrays.s** | example of a memory-located static array
