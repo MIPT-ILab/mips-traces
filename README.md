@@ -3,17 +3,17 @@ MIPS test traces for MIPT-MIPS Simulator.
 
 ## Traces
 
-| Name | Description
-|:--|:-----------|
-| **add.s** | simplest test for add instruction
-| **factorial.s** | recursive implementation of factorial
-| **fib.s** | loop implementation of Fibonacci numbers
-| **dc_ic_stress.s** | a data and instruction memory stress based on random memory access pattern
-| **dc_stress.s** | a data-only memory stress based on random memory access pattern
-| **move.s** | just a single move pseudo-instruction
-| **smc.s** | self-modifying MIPS code, modification is performed 'in-flight'
-| **static_arrays.s** | example of a memory-located static array
-| **tt.core.s** | is a part of SPIM S20 MIPS Simulator. Instructions which are not supported by MIPT-MIPS are commented out. SPIM source files are distributed under Free BSD license (see file header). Copyright (c) 1990-2010, James R. Larus. All rights reserved.
+| Name |  | Description
+|:--|:-|:-----------|
+| **add.s** | **✓** | simplest test for add instruction
+| **factorial.s** | ✘ | recursive implementation of factorial
+| **fib.s** | **✓**  | loop implementation of Fibonacci numbers
+| **dc_ic_stress.s** | **✓**  | a data and instruction memory stress based on random memory access pattern
+| **dc_stress.s** | **✓**  | a data-only memory stress based on random memory access pattern
+| **move.s** | **✓**  | just a single move pseudo-instruction
+| **smc.s** | ✘ | self-modifying MIPS code, modification is performed 'in-flight'
+| **static_arrays.s** | **✓**  | example of a memory-located static array
+| **tt.core.s** | **✓**  | is a part of SPIM S20 MIPS Simulator. Instructions which are not supported by MIPT-MIPS are commented out. SPIM source files are distributed under Free BSD license (see file header). Copyright (c) 1990-2010, James R. Larus. All rights reserved.
 
 ## Getting Started
 
