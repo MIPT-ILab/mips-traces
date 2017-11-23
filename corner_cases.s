@@ -37,7 +37,7 @@ main:
 write_deadbeef:
     or $t2, $zero, $zero
     li $t1, 0xdeadbeef
-    or $t2, $t1, $t1; $t2 must contain 0xdeadbeef
+    or $t2, $t1, $t1 # $t2 must contain 0xdeadbeef
     beq $t2, $t1, end
     la $a0, fail_msg_write_deadbeef
     jal fail
