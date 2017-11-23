@@ -6,6 +6,7 @@ MIPS test traces for MIPT-MIPS Simulator.
 | Name |  | Description
 |:--|:-|:-----------|
 | **add.s** | **✓** | simplest test for add instruction
+| **corner.s** | **?** | naughty/corner cases from our debug experience
 | **factorial.s** | ✘ | recursive implementation of factorial
 | **fib.s** | **✓**  | loop implementation of Fibonacci numbers
 | **dc_ic_stress.s** | **✓**  | a data and instruction memory stress based on random memory access pattern
