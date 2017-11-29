@@ -1021,20 +1021,20 @@ lwd_:	.word 1, -1, 0, 0x8000000
 #	bne $3, 1, fail
 #
 #
-#	.data
-#movn_:	.asciiz "Testing MOVN\n"
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, movn_
-#	syscall
-#
-#	li $2, 2
-#	li $3, 3
-#	li $4, 4
-#	movn $4, $3, $0
-#	bne $4, 4, fail
-#	movn $4, $3, $2
-#	bne $4, 3, fail
+	.data
+movn_:	.asciiz "Testing MOVN\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, movn_
+	syscall
+
+	li $2, 2
+	li $3, 3
+	li $4, 4
+	movn $4, $3, $0
+	bne $4, 4, fail
+	movn $4, $3, $2
+	bne $4, 3, fail
 #
 #
 #	.data
@@ -1055,20 +1055,20 @@ lwd_:	.word 1, -1, 0, 0x8000000
 #	bne $3, 2, fail
 #
 #
-#	.data
-#movz_:	.asciiz "Testing MOVZ\n"
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, movz_
-#	syscall
-#
-#	li $2, 2
-#	li $3, 3
-#	li $4, 4
-#	movz $4, $3, $2
-#	bne $4, 4, fail
-#	movz $4, $3, $0
-#	bne $4, 3, fail
+	.data
+movz_:	.asciiz "Testing MOVZ\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, movz_
+	syscall
+
+	li $2, 2
+	li $3, 3
+	li $4, 4
+	movz $4, $3, $2
+	bne $4, 4, fail
+	movz $4, $3, $0
+	bne $4, 3, fail
 #
 #
 #	.data
