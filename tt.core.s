@@ -451,44 +451,44 @@ break_:	.asciiz "Testing BREAK\nExpect a exception message:\n  "
 #	bne $2, $4, fail
 
 
-#	.data
-#clo_:	.asciiz "Testing CLO\n"
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, clo_
-#	syscall
-#
-#	li $2, 0
-#	clo $3, $2
-#	bne $3, 0, fail
-#
-#	li $2, 0xffffffff
-#	clo $3, $2
-#	bne $3, 32, fail
-#
-#	li $2, 0xf0000000
-#	clo $3, $2
-#	bne $3, 4, fail
+	.data
+clo_:	.asciiz "Testing CLO\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, clo_
+	syscall
+
+	li $2, 0
+	clo $3, $2
+	bne $3, 0, fail
+
+	li $2, 0xffffffff
+	clo $3, $2
+	bne $3, 32, fail
+
+	li $2, 0xf0000000
+	clo $3, $2
+	bne $3, 4, fail
 
 
-#	.data
-#clz_:	.asciiz "Testing CLZ\n"
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, clz_
-#	syscall
-#
-#	li $2, 0
-#	clz $3, $2
-#	bne $3, 32, fail
-#
-#	li $2, 0xffffffff
-#	clz $3, $2
-#	bne $3, 0, fail
-#
-#	li $2, 0x0fff0000
-#	clz $3, $2
-#	bne $3, 4, fail
+	.data
+clz_:	.asciiz "Testing CLZ\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, clz_
+	syscall
+
+	li $2, 0
+	clz $3, $2
+	bne $3, 32, fail
+
+	li $2, 0xffffffff
+	clz $3, $2
+	bne $3, 0, fail
+
+	li $2, 0x0fff0000
+	clz $3, $2
+	bne $3, 4, fail
 
 
 #	.data
