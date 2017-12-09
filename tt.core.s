@@ -3949,25 +3949,25 @@ xori_:	.asciiz "Testing XORI\n"
 # Testing Pseudo Ops
 #
 
-	.data
-abs_:	.asciiz "Testing ABS\n"
-	.text
-	li $v0, 4	# syscall 4 (print_str)
-	la $a0, abs_
-	syscall
-
-	li $2, 1
-	abs $3, $2
-	bne $3, 1, fail
-
-	li $2, -1
-	abs $2, $2
-	bne $2, 1, fail
-
-	li $2, 0
-	abs $2, $2
-	bne $2, 0, fail
-
+#	.data
+#abs_:	.asciiz "Testing ABS\n"
+#	.text
+#	li $v0, 4	# syscall 4 (print_str)
+#	la $a0, abs_
+#	syscall
+#
+#	li $2, 1
+#	abs $3, $2
+#	bne $3, 1, fail
+#
+#	li $2, -1
+#	abs $2, $2
+#	bne $2, 1, fail
+#
+#	li $2, 0
+#	abs $2, $2
+#	bne $2, 0, fail
+#
 
 	.data
 b_:	.asciiz "Testing B\n"
