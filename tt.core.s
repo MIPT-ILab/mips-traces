@@ -3949,25 +3949,24 @@ xori_:	.asciiz "Testing XORI\n"
 # Testing Pseudo Ops
 #
 
-# TODO PKRYUKOV Requires REGIMM branches
-#	.data
-#abs_:	.asciiz "Testing ABS\n"
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, abs_
-#	syscall
-#
-#	li $2, 1
-#	abs $3, $2
-#	bne $3, 1, fail
-#
-#	li $2, -1
-#	abs $2, $2
-#	bne $2, 1, fail
-#
-#	li $2, 0
-#	abs $2, $2
-#	bne $2, 0, fail
+	.data
+abs_:	.asciiz "Testing ABS\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, abs_
+	syscall
+
+	li $2, 1
+	abs $3, $2
+	bne $3, 1, fail
+
+	li $2, -1
+	abs $2, $2
+	bne $2, 1, fail
+
+	li $2, 0
+	abs $2, $2
+	bne $2, 0, fail
 
 
 	.data
@@ -3983,20 +3982,19 @@ b_:	.asciiz "Testing B\n"
 l101:
 
 
-# TODO PKRYUKOV Requires REGIMM branches
-#	.data
-#bal_:	.asciiz "Testing BAL\n"
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, bal_
-#	syscall
-#
-#	bal l102
-#l103:	j l104
-#l102:	la $4, l103
-#	bne $31, $4, fail
-#	jr $31
-#l104:
+	.data
+bal_:	.asciiz "Testing BAL\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, bal_
+	syscall
+
+	bal l102
+l103:	j l104
+l102:	la $4, l103
+	bne $31, $4, fail
+	jr $31
+l104:
 
 
 	.data
@@ -4012,36 +4010,36 @@ l105:	li $2, 1
 	beqz $2, fail
 
 
-#	.data
-#bge_:	.asciiz "Testing BGE\n"
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, bge_
-#	syscall
-#
-#	bge $0, $0, l106
-#	j fail
-#l106:	li $2, 1
-#	bge $0, $2, fail
-#	bge $2, $0, l107
-#	j fail
-#l107:	li $3, -1
-#	bge $3, $2, fail
-#	bge $2, $3, l108
-#	j fail
-#l108:
-#
-#	bge $0, 0, l109
-#	j fail
-#l109:	li $2, 1
-#	bge $0, 1, fail
-#	bge $2, 0, l110
-#	j fail
-#l110:	li $3, -1
-#	bge $3, 1, fail
-#	bge $2, -1, l111
-#	j fail
-#l111:
+	.data
+bge_:	.asciiz "Testing BGE\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, bge_
+	syscall
+
+	bge $0, $0, l106
+	j fail
+l106:	li $2, 1
+	bge $0, $2, fail
+	bge $2, $0, l107
+	j fail
+l107:	li $3, -1
+	bge $3, $2, fail
+	bge $2, $3, l108
+	j fail
+l108:
+
+	bge $0, 0, l109
+	j fail
+l109:	li $2, 1
+	bge $0, 1, fail
+	bge $2, 0, l110
+	j fail
+l110:	li $3, -1
+	bge $3, 1, fail
+	bge $2, -1, l111
+	j fail
+l111:
 
 
 	.data
@@ -4074,38 +4072,38 @@ l116:	li $3, -1
 	bgeu $3, 1, l117
 	j fail
 l117:
-#
-#
-#	.data
-#bgt_:	.asciiz "Testing BGT\n"
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, bgt_
-#	syscall
-#
-#	bgt $0, $0, fail
-#l120:	li $2, 1
-#	bgt $0, $2, fail
-#	bgt $2, $0, l121
-#	j fail
-#l121:	li $3, -1
-#	bgt $3, $2, fail
-#	bgt $2, $3, l122
-#	j fail
-#l122:
-#
-#	bgt $0, 0, fail
-#l123:	li $2, 1
-#	bgt $0, 1, fail
-#	bgt $2, 0, l124
-#	j fail
-#l124:	li $3, -1
-#	bgt $3, 1, fail
-#	bgt $2, -1, l125
-#	j fail
-#l125:
-#
-#
+
+
+	.data
+bgt_:	.asciiz "Testing BGT\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, bgt_
+	syscall
+
+	bgt $0, $0, fail
+l120:	li $2, 1
+	bgt $0, $2, fail
+	bgt $2, $0, l121
+	j fail
+l121:	li $3, -1
+	bgt $3, $2, fail
+	bgt $2, $3, l122
+	j fail
+l122:
+
+	bgt $0, 0, fail
+l123:	li $2, 1
+	bgt $0, 1, fail
+	bgt $2, 0, l124
+	j fail
+l124:	li $3, -1
+	bgt $3, 1, fail
+	bgt $2, -1, l125
+	j fail
+l125:
+
+
 	.data
 bgtu_:	.asciiz "Testing BGTU\n"
 	.text
@@ -4134,40 +4132,40 @@ l136:	li $3, -1
 	bgtu $3, 1, l137
 	j fail
 l137:
-#
-#
-#	.data
-#ble_:	.asciiz "Testing BLE\n"
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, ble_
-#	syscall
-#
-#	ble $0, $0, l140
-#	j fail
-#l140:	li $2, 1
-#	ble $2, $0, fail
-#	ble $0, $2, l141
-#	j fail
-#l141:	li $3, -1
-#	ble $2, $3, fail
-#	ble $3, $2, l142
-#	j fail
-#l142:
-#
-#	ble $0, 0, l143
-#	j fail
-#l143:	li $2, 1
-#	ble $2, 0, fail
-#	ble $0, 1, l144
-#	j fail
-#l144:	li $3, -1
-#	ble $2, -1, fail
-#	ble $3, 1, l145
-#	j fail
-#l145:
-#
-#
+
+
+	.data
+ble_:	.asciiz "Testing BLE\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, ble_
+	syscall
+
+	ble $0, $0, l140
+	j fail
+l140:	li $2, 1
+	ble $2, $0, fail
+	ble $0, $2, l141
+	j fail
+l141:	li $3, -1
+	ble $2, $3, fail
+	ble $3, $2, l142
+	j fail
+l142:
+
+	ble $0, 0, l143
+	j fail
+l143:	li $2, 1
+	ble $2, 0, fail
+	ble $0, 1, l144
+	j fail
+l144:	li $3, -1
+	ble $2, -1, fail
+	ble $3, 1, l145
+	j fail
+l145:
+
+
 	.data
 bleu_:	.asciiz "Testing BLEU\n"
 	.text
@@ -4200,35 +4198,35 @@ l156:	li $3, -1
 l157:
 
 
-#	.data
-#blt_:	.asciiz "Testing BLT\n"
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, blt_
-#	syscall
-#
-#	blt $0, $0, fail
-#l160:	li $2, 1
-#	blt $2, $0, fail
-#	blt $0, $2, l161
-#	j fail
-#l161:	li $3, -1
-#	blt $2, $3, fail
-#	blt $3, $2, l162
-#	j fail
-#l162:
-#
-#	blt $0, 0, fail
-#l163:	li $2, 1
-#	blt $2, 0, fail
-#	blt $0, 1, l164
-#	j fail
-#l164:	li $3, -1
-#	blt $2, -1, fail
-#	blt $3, 1, l165
-#	j fail
-#l165:
-#
+	.data
+blt_:	.asciiz "Testing BLT\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, blt_
+	syscall
+
+	blt $0, $0, fail
+l160:	li $2, 1
+	blt $2, $0, fail
+	blt $0, $2, l161
+	j fail
+l161:	li $3, -1
+	blt $2, $3, fail
+	blt $3, $2, l162
+	j fail
+l162:
+
+	blt $0, 0, fail
+l163:	li $2, 1
+	blt $2, 0, fail
+	blt $0, 1, l164
+	j fail
+l164:	li $3, -1
+	blt $2, -1, fail
+	blt $3, 1, l165
+	j fail
+l165:
+
 
 	.data
 bltu_:	.asciiz "Testing BLTU\n"
