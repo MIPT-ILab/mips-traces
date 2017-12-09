@@ -1938,18 +1938,18 @@ teq_:	.asciiz "Testing TEQ\nExpect one exception message:\n  "
 	teq $0, $2
 	teq $0, $0
 
-#
-#	.data
-#teqi_:	.asciiz "Testing TEQI\nExpect one exception message:\n  "
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, teqi_
-#	syscall
-#
-#	teqi $0, 4
-#	teqi $0, 0
-#
-#
+
+	.data
+teqi_:	.asciiz "Testing TEQI\nExpect one exception message:\n  "
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, teqi_
+	syscall
+
+	teqi $0, 4
+	teqi $0, 0
+
+
 	.data
 tge_:	.asciiz "Testing TGE\nExpect two exception messages:\n  "
 	.text
@@ -2003,7 +2003,7 @@ tgeu_:	.asciiz "Testing TGEU\nExpect two exception messages:\n  "
 	tgeu $0, $0
 	tgeu $3, $2
 
-#
+
 #	.data
 #tlb_:	.asciiz "Testing TLB operations:\n  "
 #	.text
@@ -2081,16 +2081,16 @@ tne_:	.asciiz "Testing TNE\nExpect one exception message:\n  "
 	tne $0, $2
 	tne $0, $0
 
-#
-#	.data
-#tnei_:	.asciiz "Testing TNEI\nExpect one exception message:\n  "
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, tnei_
-#	syscall
-#
-#	tnei $0, 4
-#	tnei $0, 0
+
+	.data
+tnei_:	.asciiz "Testing TNEI\nExpect one exception message:\n  "
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, tnei_
+	syscall
+
+	tnei $0, 4
+	tnei $0, 0
 
 
 	.data
