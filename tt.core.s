@@ -302,40 +302,40 @@ l2_1:	sub $2, $2, 1
 	bnez $2, l2_1
 
 
-#	.data
-#bgez_:	.asciiz "Testing BGEZ\n"
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, bgez_
-#	syscall
-#
-#	li $2, -1
-#	li $3, 1
-#
-#	bgez $0, l3
-#	j fail
-#l3:	bgez $3, l4
-#	j fail
-#l4:	bgez $2, fail
-#
-#
-#	.data
-#bgezal_:.asciiz "Testing BGEZAL\n"
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, bgezal_
-#	syscall
-#
-#	li $2, -1
-#	li $3, 1
-#
-#	bgezal $0, l5
-#	j fail
-#	bgezal $2, fail
-#l5:	bgezal $3, l6
-#l55:	j fail
-#l6:	la $4, l55
-#	bne $31, $4, fail
+	.data
+bgez_:	.asciiz "Testing BGEZ\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, bgez_
+	syscall
+
+	li $2, -1
+	li $3, 1
+
+	bgez $0, l3
+	j fail
+l3:	bgez $3, l4
+	j fail
+l4:	bgez $2, fail
+
+
+	.data
+bgezal_:.asciiz "Testing BGEZAL\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, bgezal_
+	syscall
+
+	li $2, -1
+	li $3, 1
+
+	bgezal $0, l5
+	j fail
+	bgezal $2, fail
+l5:	bgezal $3, l6
+l55:	j fail
+l6:	la $4, l55
+	bne $31, $4, fail
 
 
 	.data
@@ -371,38 +371,38 @@ l9:	blez $2, l10
 l10:	blez $3, fail
 
 
-#	.data
-#bltz_:	.asciiz "Testing BLTZ\n"
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, bltz_
-#	syscall
-#
-#	li $2, -1
-#	li $3, 1
-#
-#	bltz $0, fail
-#l11:	bltz $2, l12
-#	j fail
-#l12:	bltz $3, fail
-#
-#
-#	.data
-#bltzal_:.asciiz "Testing BLTZAL\n"
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, bltzal_
-#	syscall
-#
-#	li $2, -1
-#	li $3, 1
-#
-#	bltzal $0, fail
-#	bltzal $3, fail
-#l13:	bltzal $2, l15
-#l14:	j fail
-#l15:	la $4, l14
-#	bne $31, $4, fail
+	.data
+bltz_:	.asciiz "Testing BLTZ\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, bltz_
+	syscall
+
+	li $2, -1
+	li $3, 1
+
+	bltz $0, fail
+l11:	bltz $2, l12
+	j fail
+l12:	bltz $3, fail
+
+
+	.data
+bltzal_: .asciiz "Testing BLTZAL\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, bltzal_
+	syscall
+
+	li $2, -1
+	li $3, 1
+
+	bltzal $0, fail
+	bltzal $3, fail
+l13:	bltzal $2, l15
+l14:	j fail
+l15:	la $4, l14
+	bne $31, $4, fail
 
 
 	.data
@@ -1963,32 +1963,32 @@ tge_:	.asciiz "Testing TGE\nExpect two exception messages:\n  "
 	tge $0, $0
 	tge $3, $2
 
-#
-#	.data
-#tgei_:	.asciiz "Testing TGEI\nExpect two exception messages:\n  "
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, tgei_
-#	syscall
-#
-#	li $2, 8
-#	tgei $0, 4
-#	tgei $0, 0
-#	tgei $2, 1
-#
-#
-#	.data
-#tgeiu_:	.asciiz "Testing TGEIU\nExpect two exception messages:\n  "
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, tgeiu_
-#	syscall
-#
-#	li $2, -4
-#	tgeiu $0, 4
-#	tgeiu $0, 0
-#	tgeiu $2, 1
-#
+
+	.data
+tgei_:	.asciiz "Testing TGEI\nExpect two exception messages:\n  "
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, tgei_
+	syscall
+
+	li $2, 8
+	tgei $0, 4
+	tgei $0, 0
+	tgei $2, 1
+
+
+	.data
+tgeiu_:	.asciiz "Testing TGEIU\nExpect two exception messages:\n  "
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, tgeiu_
+	syscall
+
+	li $2, -4
+	tgeiu $0, 4
+	tgeiu $0, 0
+	tgeiu $2, 1
+
 
 	.data
 tgeu_:	.asciiz "Testing TGEU\nExpect two exception messages:\n  "
@@ -2029,31 +2029,31 @@ tlt_:	.asciiz "Testing TLT\nExpect one exception message:\n  "
 	tlt $0, $0
 	tlt $3, $2
 
-#
-#	.data
-#tlti_:	.asciiz "Testing TLTI\nExpect one exception message:\n  "
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, tlti_
-#	syscall
-#
-#	li $2, 8
-#	tlti $0, 4
-#	tlti $0, 0
-#	tlti $2, 1
-#
-#
-#	.data
-#tltiu_:	.asciiz "Testing TLTIU\nExpect one exception message:\n  "
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, tltiu_
-#	syscall
-#
-#	li $2, -4
-#	tltiu $0, 4
-#	tltiu $0, 0
-#	tltiu $2, 1
+
+	.data
+tlti_:	.asciiz "Testing TLTI\nExpect one exception message:\n  "
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, tlti_
+	syscall
+
+	li $2, 8
+	tlti $0, 4
+	tlti $0, 0
+	tlti $2, 1
+
+
+	.data
+tltiu_:	.asciiz "Testing TLTIU\nExpect one exception message:\n  "
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, tltiu_
+	syscall
+
+	li $2, -4
+	tltiu $0, 4
+	tltiu $0, 0
+	tltiu $2, 1
 
 
 	.data
