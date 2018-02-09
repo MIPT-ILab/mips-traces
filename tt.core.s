@@ -491,89 +491,88 @@ clz_:	.asciiz "Testing CLZ\n"
 	bne $3, 4, fail
 
 
-#	.data
-#div_:	.asciiz "Testing DIV\n"
-#div2_:	.asciiz "Expect exception caused by divide by 0:\n  "
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, div_
-#	syscall
-#
-#	li $2, 4
-#	li $3, 2
-#	li $4, -2
-#
-#	div $5, $2, $3
-#	bne $5, 2, fail
-#	mfhi $5
-#	bne $5, 0, fail
-#
-#	div $5, $2, $4
-#	bne $5, -2, fail
-#	mfhi $5
-#	bne $5, 0, fail
-#
-#	li $2, 0x80000000
-#	li $4, 0xffffffff
-#	div $5, $2, $4	# Overflows, but should not cause overflow
-#
-#	li $2, 1
-#	li $4, 0xffffffff
-#	div $5, $2, $4
-#	bne $5, -1, fail
-#	mfhi $5
-#	bne $5, 0, fail
-#
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, div2_
-#	syscall
-#	div $5, $2, $0
-#
-#
-#	.data
-#divu_:	.asciiz "Testing DIVU\n"
-#divu2_:	.asciiz "Expect exception caused by divide by 0:\n  "
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, divu_
-#	syscall
-#
-#	li $2, 4
-#	li $3, 2
-#	li $4, -2
-#
-#	divu $5, $2, $3
-#	bne $5, 2, fail
-#	mfhi $5
-#	bne $5, 0, fail
-#
-#	divu $0, $2, $3
-#	mflo $5
-#	bne $5, 2, fail
-#	mfhi $5
-#	bne $5, 0, fail
-#
-#	divu $5, $2, $4
-#	bne $5, 0, fail
-#	mfhi $5
-#	bne $5, 4, fail
-#
-#	li $2, 0x80000000
-#	li $4, 0xffffffff
-#	divu $5, $2, $4	# Overflows, but should not cause overflow
-#
-#	li $2, 1
-#	li $4, 0xffffffff
-#	divu $5, $2, $4
-#	bne $5, 0, fail
-#	mfhi $5
-#	bne $5, 1, fail
-#
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, divu2_
-#	syscall
-#	divu $5, $2, $0
+	.data
+div_:	.asciiz "Testing DIV\n"
+div2_:	.asciiz "Expect exception caused by divide by 0:\n  "
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, div_
+	syscall
 
+	li $2, 4
+	li $3, 2
+	li $4, -2
+
+	div $5, $2, $3
+	bne $5, 2, fail
+	mfhi $5
+	bne $5, 0, fail
+
+	div $5, $2, $4
+	bne $5, -2, fail
+	mfhi $5
+	bne $5, 0, fail
+
+	li $2, 0x80000000
+	li $4, 0xffffffff
+	div $5, $2, $4	# Overflows, but should not cause overflow
+
+	li $2, 1
+	li $4, 0xffffffff
+	div $5, $2, $4
+	bne $5, -1, fail
+	mfhi $5
+	bne $5, 0, fail
+
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, div2_
+	syscall
+	div $5, $2, $0
+
+
+	.data
+divu_:	.asciiz "Testing DIVU\n"
+divu2_:	.asciiz "Expect exception caused by divide by 0:\n  "
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, divu_
+	syscall
+
+	li $2, 4
+	li $3, 2
+	li $4, -2
+
+	divu $5, $2, $3
+	bne $5, 2, fail
+	mfhi $5
+	bne $5, 0, fail
+
+	divu $0, $2, $3
+	mflo $5
+	bne $5, 2, fail
+	mfhi $5
+	bne $5, 0, fail
+
+	divu $5, $2, $4
+	bne $5, 0, fail
+	mfhi $5
+	bne $5, 4, fail
+
+	li $2, 0x80000000
+	li $4, 0xffffffff
+	divu $5, $2, $4	# Overflows, but should not cause overflow
+
+	li $2, 1
+	li $4, 0xffffffff
+	divu $5, $2, $4
+	bne $5, 0, fail
+	mfhi $5
+	bne $5, 1, fail
+
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, divu2_
+	syscall
+	divu $5, $2, $0
 
 	.data
 j_:	.asciiz "Testing J\n"
@@ -4414,41 +4413,39 @@ not_:	.asciiz "Testing NOT\n"
 	not $3, $2
 	bne $3, 0, fail
 
-# TODO PKRYUKOV these are div/divu wrappers
-#	.data
-#rem_:	.asciiz "Testing REM\n"
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, rem_
-#	syscall
-#
-#	li $2, 5
-#	li $3, 2
-#	li $4, -2
-#
-#	rem $5, $2, $3
-#	bne $5, 1, fail
-#
-#	rem $5, $2, $4
-#	bne $5, 1, fail
-#
-#	.data
-#remu_:	.asciiz "Testing REMU\n"
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, remu_
-#	syscall
-#
-#	li $2, 5
-#	li $3, 2
-#	li $4, -2
-#
-#	remu $5, $2, $3
-#	bne $5, 1, fail
-#
-#	remu $5, $2, $4
-#	bne $5, 5, fail
+	.data
+rem_:	.asciiz "Testing REM\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, rem_
+	syscall
 
+	li $2, 5
+	li $3, 2
+	li $4, -2
+
+	rem $5, $2, $3
+	bne $5, 1, fail
+
+	rem $5, $2, $4
+	bne $5, 1, fail
+
+	.data
+remu_:	.asciiz "Testing REMU\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, remu_
+	syscall
+
+	li $2, 5
+	li $3, 2
+	li $4, -2
+
+	remu $5, $2, $3
+	bne $5, 1, fail
+
+	remu $5, $2, $4
+	bne $5, 5, fail
 
 	.data
 rol_:	.asciiz "Testing ROL\n"
