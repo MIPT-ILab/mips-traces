@@ -1155,136 +1155,130 @@ movz_:	.asciiz "Testing MOVZ\n"
 #	mflo $3
 #	bne $3, 1, fail
 
-#	.data
-#mul_:	.asciiz "Testing MUL\n"
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, mul_
-#	syscall
-#
-#	li $2, 1
-#	mul $3, $2, 0
-#	bnez $3, fail
-#	mul $3, $2, 1
-#	bne $3, 1, fail
-#	mul $3, $2, 10
-#	bne $3, 10, fail
-#
-#	mul $2, $0, $0
-#	bnez $2, fail
-#	mfhi $3
-#	bnez $3, fail
-#	mflo $3
-#	bnez $3, fail
-#
-#	li $4, 1
-#	mul $2, $4, $4
-#	bne $2, 1, fail
-#	mfhi $3
-#	bnez $3, fail
-#	mflo $3
-#	bne $3, 1, fail
-#
-#	li $4, -1
-#	mul $2, $4, $4
-#	bne $2, 1, fail
-#	mfhi $3
-#	bnez $3, fail
-#	mflo $3
-#	bne $3, 1, fail
-#
-#	li $4, -1
-#	li $5, 1
-#	mul $2, $4, $5
-#	bne $2, -1, fail
-#	mfhi $3
-#	bne $3, -1, fail
-#	mflo $3
-#	bne $3, -1, fail
-#
-#	li $4, 0x10000
-#	mul $2, $4, $4
-#	bne $2, 0, fail
-#	mfhi $3
-#	bne $3, 1, fail
-#	mflo $3
-#	bne $3, 0, fail
-#
-#	li $4, 0x80000000
-#	mul $2, $4, $4
-#	bne $2, 0, fail
-#	mfhi $3
-#	bne $3, 0x40000000, fail
-#	mflo $3
-#	bne $3, 0, fail
-#
-#
-#	.data
-#multu_:	.asciiz "Testing MULTU\n"
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, multu_
-#	syscall
-#
-#	multu $0, $0
-#	mfhi $3
-#	bnez $3, fail
-#	mflo $3
-#	bnez $3, fail
-#
-#	li $4, 1
-#	multu $4, $4
-#	mfhi $3
-#	bnez $3, fail
-#	mflo $3
-#	bne $3, 1, fail
-#
-#	li $4, -1
-#	multu $4, $4
-#	mfhi $3
-#	bne $3, 0xfffffffe, fail
-#	mflo $3
-#	bne $3, 1, fail
-#
-#	li $4, -1
-#	li $5, 0
-#	multu $4, $5
-#	mfhi $3
-#	bne $3, 0, fail
-#	mflo $3
-#	bne $3, 0, fail
-#
-#	li $4, -1
-#	li $5, 1
-#	multu $4, $5
-#	mfhi $3
-#	bne $3, 0, fail
-#	mflo $3
-#	bne $3, -1, fail
-#
-#	li $4, 0x10000
-#	multu $4, $4
-#	mfhi $3
-#	bne $3, 1, fail
-#	mflo $3
-#	bne $3, 0, fail
-#
-#	li $4, 0x80000000
-#	multu $4, $4
-#	mfhi $3
-#	bne $3, 0x40000000, fail
-#	mflo $3
-#	bne $3, 0, fail
-#
-#	li $3, 0xcecb8f27
-#	li $4, 0xfd87b5f2
-#	multu $3, $4
-#	mfhi $3
-#	bne $3, 0xcccccccb, fail
-#	mflo $3
-#	bne $3, 0x7134e5de, fail
-#
-#
+	.data
+mul_:	.asciiz "Testing MUL\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, mul_
+	syscall
+
+	li $2, 1
+	mul $3, $2, 0
+	bnez $3, fail
+	mul $3, $2, 1
+	bne $3, 1, fail
+	mul $3, $2, 10
+	bne $3, 10, fail
+
+	mult $0, $0
+	mfhi $3
+	bnez $3, fail
+	mflo $3
+	bnez $3, fail
+
+	li $4, 1
+	mult $4, $4
+	mfhi $3
+	bnez $3, fail
+	mflo $3
+	bne $3, 1, fail
+
+	li $4, -1
+	mult $4, $4
+	mfhi $3
+	bnez $3, fail
+	mflo $3
+	bne $3, 1, fail
+
+	li $4, -1
+	li $5, 1
+	mult $4, $5
+	mfhi $3
+	bne $3, -1, fail
+	mflo $3
+	bne $3, -1, fail
+
+	li $4, 0x10000
+	mult $4, $4
+	mfhi $3
+	bne $3, 1, fail
+	mflo $3
+	bne $3, 0, fail
+
+	li $4, 0x80000000
+	mult $4, $4
+	mfhi $3
+	bne $3, 0x40000000, fail
+	mflo $3
+	bne $3, 0, fail
+
+
+	.data
+multu_:	.asciiz "Testing MULTU\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, multu_
+	syscall
+
+	multu $0, $0
+	mfhi $3
+	bnez $3, fail
+	mflo $3
+	bnez $3, fail
+
+	li $4, 1
+	multu $4, $4
+	mfhi $3
+	bnez $3, fail
+	mflo $3
+	bne $3, 1, fail
+
+	li $4, -1
+	multu $4, $4
+	mfhi $3
+	bne $3, 0xfffffffe, fail
+	mflo $3
+	bne $3, 1, fail
+
+	li $4, -1
+	li $5, 0
+	multu $4, $5
+	mfhi $3
+	bne $3, 0, fail
+	mflo $3
+	bne $3, 0, fail
+
+	li $4, -1
+	li $5, 1
+	multu $4, $5
+	mfhi $3
+	bne $3, 0, fail
+	mflo $3
+	bne $3, -1, fail
+
+	li $4, 0x10000
+	multu $4, $4
+	mfhi $3
+	bne $3, 1, fail
+	mflo $3
+	bne $3, 0, fail
+
+	li $4, 0x80000000
+	multu $4, $4
+	mfhi $3
+	bne $3, 0x40000000, fail
+	mflo $3
+	bne $3, 0, fail
+
+	li $3, 0xcecb8f27
+	li $4, 0xfd87b5f2
+	multu $3, $4
+	mfhi $3
+	bne $3, 0xcccccccb, fail
+	mflo $3
+	bne $3, 0x7134e5de, fail
+
+
 #	.data
 #mulo_:	.asciiz "Testing MULO\n"
 #mulo1_:	.asciiz "Expect an exception:\n	 "
