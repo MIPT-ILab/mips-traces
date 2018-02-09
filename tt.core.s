@@ -972,35 +972,35 @@ lwd_:	.word 1, -1, 0, 0x8000000
 #	bne $3, $7, fail
 
 
-#	.data
-#hilo_:	.asciiz "Testing move to/from HI/LO\n"
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, hilo_
-#	syscall
-#
-#	mthi $0
-#	mfhi $2
-#	bnez $2, fail
-#	mtlo $0
-#	mflo $2
-#	bnez $2, fail
-#	li $2, 1
-#	mthi $2
-#	mfhi $3
-#	bne $3, $2, fail
-#	li $2, 1
-#	mtlo $2
-#	mflo $3
-#	bne $3, $2, fail
-#	li $2, -1
-#	mthi $2
-#	mfhi $3
-#	bne $3, $2, fail
-#	li $2, -1
-#	mtlo $2
-#	mflo $3
-#	bne $3, $2, fail
+	.data
+hilo_:	.asciiz "Testing move to/from HI/LO\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, hilo_
+	syscall
+
+	mthi $0
+	mfhi $2
+	bnez $2, fail
+	mtlo $0
+	mflo $2
+	bnez $2, fail
+	li $2, 1
+	mthi $2
+	mfhi $3
+	bne $3, $2, fail
+	li $2, 1
+	mtlo $2
+	mflo $3
+	bne $3, $2, fail
+	li $2, -1
+	mthi $2
+	mfhi $3
+	bne $3, $2, fail
+	li $2, -1
+	mtlo $2
+	mflo $3
+	bne $3, $2, fail
 
 
 #	.data
