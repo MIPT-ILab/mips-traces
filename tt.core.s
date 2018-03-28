@@ -1068,91 +1068,91 @@ movz_:	.asciiz "Testing MOVZ\n"
 	bne $4, 4, fail
 	movz $4, $3, $0
 	bne $4, 3, fail
-#
-#
-#	.data
-#msub_:	.asciiz "Testing MSUB\n"
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, msub_
-#	syscall
-#
-#	mthi $0
-#	mtlo $0
-#	msub $0, $0
-#	mfhi $3
-#	bnez $3, fail
-#	mflo $3
-#	bnez $3, fail
-#
-#	mthi $0
-#	mtlo $0
-#	li $4, 1
-#	msub $4, $4
-#	mfhi $3
-#	bne $3, 0xffffffff, fail
-#	mflo $3
-#	bne $3, 0xffffffff, fail
-#
-#	li $4, 1
-#	msub $3, $4
-#	mfhi $3
-#	bnez $3, fail
-#	mflo $3
-#	bnez $3, fail
-#
-#	mthi $0
-#	mtlo $0
-#	li $4, 0x10000
-#	msub $4, $4
-#	mfhi $3
-#	bne $3, 0xffffffff, fail
-#	mflo $3
-#	bne $3, 0, fail
-#
-#	mtlo $0
-#	mthi $0
-#	li $4, 1
-#	li $5, -1
-#	msub $5, $4
-#	mfhi $3
-#	bne $3, 0, fail
-#	mflo $3
-#	bne $3, 1, fail
-#
-#	.data
-#msubu_:	.asciiz "Testing MSUBU\n"
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, msubu_
-#	syscall
-#
-#	mthi $0
-#	mtlo $0
-#	msubu $0, $0
-#	mfhi $3
-#	bnez $3, fail
-#	mflo $3
-#	bnez $3, fail
-#
-#	mthi $0
-#	mtlo $0
-#	li $4, 1
-#	msubu $4, $4
-#	mfhi $3
-#	bne $3, 0xffffffff, fail
-#	mflo $3
-#	bne $3, 0xffffffff, fail
-#
-#	mtlo $0
-#	mthi $0
-#	li $4, 1
-#	li $5, -1
-#	msubu $5, $4
-#	mfhi $3
-#	bne $3, 0xffffffff, fail
-#	mflo $3
-#	bne $3, 1, fail
+
+
+	.data
+msub_:	.asciiz "Testing MSUB\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, msub_
+	syscall
+
+	mthi $0
+	mtlo $0
+	msub $0, $0
+	mfhi $3
+	bnez $3, fail
+	mflo $3
+	bnez $3, fail
+
+	mthi $0
+	mtlo $0
+	li $4, 1
+	msub $4, $4
+	mfhi $3
+	bne $3, 0xffffffff, fail
+	mflo $3
+	bne $3, 0xffffffff, fail
+
+	li $4, 1
+	msub $3, $4
+	mfhi $3
+	bnez $3, fail
+	mflo $3
+	bnez $3, fail
+
+	mthi $0
+	mtlo $0
+	li $4, 0x10000
+	msub $4, $4
+	mfhi $3
+	bne $3, 0xffffffff, fail
+	mflo $3
+	bne $3, 0, fail
+
+	mtlo $0
+	mthi $0
+	li $4, 1
+	li $5, -1
+	msub $5, $4
+	mfhi $3
+	bne $3, 0, fail
+	mflo $3
+	bne $3, 1, fail
+
+	.data
+msubu_:	.asciiz "Testing MSUBU\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, msubu_
+	syscall
+
+	mthi $0
+	mtlo $0
+	msubu $0, $0
+	mfhi $3
+	bnez $3, fail
+	mflo $3
+	bnez $3, fail
+
+	mthi $0
+	mtlo $0
+	li $4, 1
+	msubu $4, $4
+	mfhi $3
+	bne $3, 0xffffffff, fail
+	mflo $3
+	bne $3, 0xffffffff, fail
+
+	mtlo $0
+	mthi $0
+	li $4, 1
+	li $5, -1
+	msubu $5, $4
+	mfhi $3
+	bne $3, 0xffffffff, fail
+	mflo $3
+	bne $3, 1, fail
 
 	.data
 mul_:	.asciiz "Testing MUL\n"
