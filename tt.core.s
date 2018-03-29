@@ -752,20 +752,20 @@ lhu_:	.asciiz "Testing LHU\n"
 	lhu $3, 1001($t5)
 
 
-#	.data
-#ll_:	.asciiz "Testing LL\n"
-#ll1:	.word 10
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, ll_
-#	syscall
-#
-#	ll $2, ll1
-#	bne $2, 10, fail
-#	add $2, $2, 1
-#	sc $2, ll1
-#	lw $3, ll1
-#	bne $2, $3, fail
+	.data
+ll_:	.asciiz "Testing LL\n"
+ll1:	.word 10
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, ll_
+	syscall
+
+	ll $2, ll1
+	bne $2, 10, fail
+	add $2, $2, 1
+	sc $2, ll1
+	lw $3, ll1
+	bne $2, $3, fail
 
 	.data
 lui_:	.asciiz "Testing LUI\n"
