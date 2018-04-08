@@ -4906,39 +4906,39 @@ lbu_:	.asciiz "Testing LBU\n"
 #	lwl $3, 1001($t5)
 #
 #
-#	.data
-#lwr_:	.asciiz "Testing LWR\n"
-#	.align 2
-#lwrd_:	.byte 0, 1, 2, 3, 4, 5, 6, 7
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, lwr_
-#	syscall
-#
-#	la $2, lwrd_
-#	li $3, 0x00000500
-#	lwr $3, 0($2)
-#	bne $3, 0x3020100, fail
-#	move $3, $0
-#	lwr $3, 1($2)
-#	bne $3, 0x30201, fail
-#	li $3, 0x50000000
-#	lwr $3, 1($2)
-#	bne $3, 0x50030201, fail
-#	move $3, $0
-#	lwr $3, 2($2)
-#	bne $3, 0x0302, fail
-#	li $3, 0x50000000
-#	lwr $3, 2($2)
-#	bne $3, 0x50000302, fail
-#
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, m6
-#	syscall
-#
-#	li $t5, 0x7fffffff
-#	lwr $3, 1000($t5)
-#	lwr $3, 1001($t5)
+	.data
+lwr_:	.asciiz "Testing LWR\n"
+	.align 2
+lwrd_:	.byte 0, 1, 2, 3, 4, 5, 6, 7
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, lwr_
+	syscall
+
+	la $2, lwrd_
+	li $3, 0x00000500
+	lwr $3, 0($2)
+	bne $3, 0x3020100, fail
+	move $3, $0
+	lwr $3, 1($2)
+	bne $3, 0x30201, fail
+	li $3, 0x50000000
+	lwr $3, 1($2)
+	bne $3, 0x50030201, fail
+	move $3, $0
+	lwr $3, 2($2)
+	bne $3, 0x0302, fail
+	li $3, 0x50000000
+	lwr $3, 2($2)
+	bne $3, 0x50000302, fail
+
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, m6
+	syscall
+
+	li $t5, 0x7fffffff
+	lwr $3, 1000($t5)
+	lwr $3, 1001($t5)
 
 
 	.data
