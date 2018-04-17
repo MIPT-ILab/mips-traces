@@ -4865,47 +4865,47 @@ lbu_:	.asciiz "Testing LBU\n"
 	lbu $3, 1000($t5)
 
 
-#	.data
-#lwl_:	.asciiz "Testing LWL\n"
-#	.align 2
-#lwld_:	.byte 0, 1, 2, 3, 4, 5, 6, 7
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, lwl_
-#	syscall
-#
-#	la $2, lwld_
-#	move $3, $0
-#	lwl $3, 0($2)
-#	bne $3, 0, fail
-#	move $3, $0
-#	lwl $3, 1($2)
-#	bne $3, 0x01000000, fail
-#	li $3, 5
-#	lwl $3, 1($2)
-#	bne $3, 0x01000005, fail
-#	move $3, $0
-#	lwl $3, 2($2)
-#	bne $3, 0x02010000, fail
-#	li $3, 5
-#	lwl $3, 2($2)
-#	bne $3, 0x02010005, fail
-#	move $3, $0
-#	lwl $3, 3($2)
-#	bne $3, 0x03020100, fail
-#	li $3, 5
-#	lwl $3, 3($2)
-#	bne $3, 0x03020100, fail
-#
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, m6
-#	syscall
-#
-#	li $t5, 0x7fffffff
-#	lwl $3, 1000($t5)
-#	lwl $3, 1001($t5)
-#
-#
+	.data
+lwl_:	.asciiz "Testing LWL\n"
+	.align 2
+lwld_:	.byte 0, 1, 2, 3, 4, 5, 6, 7
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, lwl_
+	syscall
+
+	la $2, lwld_
+	move $3, $0
+	lwl $3, 0($2)
+	bne $3, 0, fail
+	move $3, $0
+	lwl $3, 1($2)
+	bne $3, 0x01000000, fail
+	li $3, 5
+	lwl $3, 1($2)
+	bne $3, 0x01000005, fail
+	move $3, $0
+	lwl $3, 2($2)
+	bne $3, 0x02010000, fail
+	li $3, 5
+	lwl $3, 2($2)
+	bne $3, 0x02010005, fail
+	move $3, $0
+	lwl $3, 3($2)
+	bne $3, 0x03020100, fail
+	li $3, 5
+	lwl $3, 3($2)
+	bne $3, 0x03020100, fail
+
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, m6
+	syscall
+
+	li $t5, 0x7fffffff
+	lwl $3, 1000($t5)
+	lwl $3, 1001($t5)
+
+
 	.data
 lwr_:	.asciiz "Testing LWR\n"
 	.align 2
@@ -5119,22 +5119,22 @@ ulhu_:	.asciiz "Testing ULHU\n"
 	bne $3, 0xffff, fail
 
 
-#	.data
-#ulw_:	.asciiz "Testing ULW\n"
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, ulw_
-#	syscall
-#
-#	la $2, ulh1_
-#	ulw $3, 0($2)
-#	bne $3, 0x04030201, fail
-#	ulw $3, 1($2)
-#	bne $3, 0x05040302, fail
-#	ulw $3, 2($2)
-#	bne $3, 0x06050403, fail
-#	ulw $3, 3($2)
-#	bne $3, 0x07060504, fail
+	.data
+ulw_:	.asciiz "Testing ULW\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, ulw_
+	syscall
+
+	la $2, ulh1_
+	ulw $3, 0($2)
+	bne $3, 0x04030201, fail
+	ulw $3, 1($2)
+	bne $3, 0x05040302, fail
+	ulw $3, 2($2)
+	bne $3, 0x06050403, fail
+	ulw $3, 3($2)
+	bne $3, 0x07060504, fail
 
 
 	.data
