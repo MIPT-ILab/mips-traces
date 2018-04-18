@@ -4893,9 +4893,9 @@ lwld_:	.byte 0, 1, 2, 3, 4, 5, 6, 7
 	move $3, $0
 	lwl $3, 3($2)
 	bne $3, 0x03020100, fail
-#	li $3, 5
-#	lwl $3, 3($2)
-#	bne $3, 0x03020100, fail
+	li $3, 5
+	lwl $3, 3($2)
+	bne $3, 0x03020100, fail
 
 	li $v0, 4	# syscall 4 (print_str)
 	la $a0, m6
