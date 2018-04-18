@@ -5228,33 +5228,33 @@ ushd:	.word 0, 0
 #	bne $4, 0xffffff, fail
 
 
-#	.data
-#word_:	.asciiz "Testing .WORD\n"
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, word_
-#	syscall
-#
-#	.data
-#	.align 0
-#wordd:	.byte 0x1
-#	.word 0x2345678
-#	.word 0x9abcdef
-#	.text
-#	la $2, wordd
-#	lwr $3, 1($2)
-#	lwl $3, 4($2)
-#	bne $3, 0x2345678, fail
-#	lwr $3, 5($2)
-#	lwl $3, 8($2)
-#	bne $3, 0x9abcdef, fail
-#
-#	.data
-#	.byte 0
-#x:	.word OK	# Forward reference in unaligned data!
-#	.text
-#	lw $8, x
-#	beq $8, $0, fail
+	.data
+word_:	.asciiz "Testing .WORD\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, word_
+	syscall
+
+	.data
+	.align 0
+wordd:	.byte 0x1
+	.word 0x2345678
+	.word 0x9abcdef
+	.text
+	la $2, wordd
+	lwr $3, 1($2)
+	lwl $3, 4($2)
+	bne $3, 0x2345678, fail
+	lwr $3, 5($2)
+	lwl $3, 8($2)
+	bne $3, 0x9abcdef, fail
+
+	.data
+	.byte 0
+x:	.word OK	# Forward reference in unaligned data!
+	.text
+	lw $8, x
+	beq $8, $0, fail
 
 OK:
 
