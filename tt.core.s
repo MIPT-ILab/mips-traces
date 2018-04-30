@@ -752,20 +752,20 @@ lhu_:	.asciiz "Testing LHU\n"
 	lhu $3, 1001($t5)
 
 
-	.data
-ll_:	.asciiz "Testing LL\n"
-ll1:	.word 10
-	.text
-	li $v0, 4	# syscall 4 (print_str)
-	la $a0, ll_
-	syscall
-
-	ll $2, ll1
-	bne $2, 10, fail
-	add $2, $2, 1
-	sc $2, ll1
-	lw $3, ll1
-	bne $2, $3, fail
+#	.data
+#ll_:	.asciiz "Testing LL\n"
+#ll1:	.word 10
+#	.text
+#	li $v0, 4	# syscall 4 (print_str)
+#	la $a0, ll_
+#	syscall
+#
+#	ll $2, ll1
+#	bne $2, 10, fail
+#	add $2, $2, 1
+#	sc $2, ll1
+#	lw $3, ll1
+#	bne $2, $3, fail
 
 	.data
 lui_:	.asciiz "Testing LUI\n"
@@ -4865,47 +4865,47 @@ lbu_:	.asciiz "Testing LBU\n"
 	lbu $3, 1000($t5)
 
 
-#	.data
-#lwl_:	.asciiz "Testing LWL\n"
-#	.align 2
-#lwld_:	.byte 0, 1, 2, 3, 4, 5, 6, 7
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, lwl_
-#	syscall
-#
-#	la $2, lwld_
-#	move $3, $0
-#	lwl $3, 0($2)
-#	bne $3, 0, fail
-#	move $3, $0
-#	lwl $3, 1($2)
-#	bne $3, 0x01000000, fail
-#	li $3, 5
-#	lwl $3, 1($2)
-#	bne $3, 0x01000005, fail
-#	move $3, $0
-#	lwl $3, 2($2)
-#	bne $3, 0x02010000, fail
-#	li $3, 5
-#	lwl $3, 2($2)
-#	bne $3, 0x02010005, fail
-#	move $3, $0
-#	lwl $3, 3($2)
-#	bne $3, 0x03020100, fail
-#	li $3, 5
-#	lwl $3, 3($2)
-#	bne $3, 0x03020100, fail
-#
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, m6
-#	syscall
-#
-#	li $t5, 0x7fffffff
-#	lwl $3, 1000($t5)
-#	lwl $3, 1001($t5)
-#
-#
+	.data
+lwl_:	.asciiz "Testing LWL\n"
+	.align 2
+lwld_:	.byte 0, 1, 2, 3, 4, 5, 6, 7
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, lwl_
+	syscall
+
+	la $2, lwld_
+	move $3, $0
+	lwl $3, 0($2)
+	bne $3, 0, fail
+	move $3, $0
+	lwl $3, 1($2)
+	bne $3, 0x01000000, fail
+	li $3, 5
+	lwl $3, 1($2)
+	bne $3, 0x01000005, fail
+	move $3, $0
+	lwl $3, 2($2)
+	bne $3, 0x02010000, fail
+	li $3, 5
+	lwl $3, 2($2)
+	bne $3, 0x02010005, fail
+	move $3, $0
+	lwl $3, 3($2)
+	bne $3, 0x03020100, fail
+	li $3, 5
+	lwl $3, 3($2)
+	bne $3, 0x03020100, fail
+
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, m6
+	syscall
+
+	li $t5, 0x7fffffff
+	lwl $3, 1000($t5)
+	lwl $3, 1001($t5)
+
+
 	.data
 lwr_:	.asciiz "Testing LWR\n"
 	.align 2
@@ -5006,66 +5006,66 @@ shd_:	.byte 0, 0, 0, 0
 	sh $3, 1001($t5)
 
 
-#	.data
-#swl_:	.asciiz "Testing SWL\n"
-#	.align 2
-#swld_:	.word 0, 0
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, swl_
-#	syscall
-#
-#	la $2, swld_
-#	li $3, 0x01000000
-#	swl $3, 0($2)
-#	lw $4, 0($2)
-#	bne $4, 0x1, fail
-#
-#	li $3, 0x01020000
-#	swl $3, 1($2)
-#	lw $4, 0($2)
-#	bne $4, 0x0102, fail
-#
-#	li $3, 0x01020300
-#	swl $3, 2($2)
-#	lw $4, 0($2)
-#	bne $4, 0x010203, fail
-#
-#	li $3, 0x01020304
-#	swl $3, 3($2)
-#	lw $4, 0($2)
-#	bne $4, 0x01020304, fail
+	.data
+swl_:	.asciiz "Testing SWL\n"
+	.align 2
+swld_:	.word 0, 0
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, swl_
+	syscall
+
+	la $2, swld_
+	li $3, 0x01000000
+	swl $3, 0($2)
+	lw $4, 0($2)
+	bne $4, 0x1, fail
+
+	li $3, 0x01020000
+	swl $3, 1($2)
+	lw $4, 0($2)
+	bne $4, 0x0102, fail
+
+	li $3, 0x01020300
+	swl $3, 2($2)
+	lw $4, 0($2)
+	bne $4, 0x010203, fail
+
+	li $3, 0x01020304
+	swl $3, 3($2)
+	lw $4, 0($2)
+	bne $4, 0x01020304, fail
 
 
-#	.data
-#swr_:	.asciiz "Testing SWR\n"
-#	.align 2
-#swrd_:	.word 0, 0
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, swr_
-#	syscall
-#
-#	la $2, swrd_
-#	li $3, 1
-#	swr $3, 0($2)
-#	lw $4, 0($2)
-#	bne $4, 1, fail
-#
-#	li $3, 0x0102
-#	swr $3, 1($2)
-#	lw $4, 0($2)
-#	bne $4, 0x10201, fail
-#
-#	li $3, 0x010203
-#	swr $3, 2($2)
-#	lw $4, 0($2)
-#	bne $4, 0x2030201, fail
-#
-#	li $3, 0x01020304
-#	swr $3, 3($2)
-#	lw $4, 0($2)
-#	bne $4, 0x4030201, fail
+	.data
+swr_:	.asciiz "Testing SWR\n"
+	.align 2
+swrd_:	.word 0, 0
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, swr_
+	syscall
+
+	la $2, swrd_
+	li $3, 1
+	swr $3, 0($2)
+	lw $4, 0($2)
+	bne $4, 1, fail
+
+	li $3, 0x0102
+	swr $3, 1($2)
+	lw $4, 0($2)
+	bne $4, 0x10201, fail
+
+	li $3, 0x010203
+	swr $3, 2($2)
+	lw $4, 0($2)
+	bne $4, 0x2030201, fail
+
+	li $3, 0x01020304
+	swr $3, 3($2)
+	lw $4, 0($2)
+	bne $4, 0x4030201, fail
 
 
 	.data
@@ -5119,22 +5119,22 @@ ulhu_:	.asciiz "Testing ULHU\n"
 	bne $3, 0xffff, fail
 
 
-#	.data
-#ulw_:	.asciiz "Testing ULW\n"
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, ulw_
-#	syscall
-#
-#	la $2, ulh1_
-#	ulw $3, 0($2)
-#	bne $3, 0x04030201, fail
-#	ulw $3, 1($2)
-#	bne $3, 0x05040302, fail
-#	ulw $3, 2($2)
-#	bne $3, 0x06050403, fail
-#	ulw $3, 3($2)
-#	bne $3, 0x07060504, fail
+	.data
+ulw_:	.asciiz "Testing ULW\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, ulw_
+	syscall
+
+	la $2, ulh1_
+	ulw $3, 0($2)
+	bne $3, 0x04030201, fail
+	ulw $3, 1($2)
+	bne $3, 0x05040302, fail
+	ulw $3, 2($2)
+	bne $3, 0x06050403, fail
+	ulw $3, 3($2)
+	bne $3, 0x07060504, fail
 
 
 	.data
@@ -5183,78 +5183,78 @@ ushd:	.word 0, 0
 	bne $4, 0x03, fail
 
 
-#	.data
-#usw_:	.asciiz "Testing USW\n"
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, usw_
-#	syscall
-#
-#	la $2, ushd
-#	sw $0, 0($2)
-#	sw $0, 4($2)
-#	li $3, -1
-#	usw $3, 0($2)
-#	lw $4, 0($2)
-#	bne $4, -1, fail
-#	lw $4, 4($2)
-#	bne $4, 0, fail
-#
-#	sw $0, 0($2)
-#	sw $0, 4($2)
-#	li $3, -1
-#	usw $3, 1($2)
-#	lw $4, 0($2)
-#	bne $4, 0xffffff00, fail
-#	lw $4, 4($2)
-#	bne $4, 0xff, fail
-#
-#	sw $0, 0($2)
-#	sw $0, 4($2)
-#	li $3, -1
-#	usw $3, 2($2)
-#	lw $4, 0($2)
-#	bne $4, 0xffff0000, fail
-#	lw $4, 4($2)
-#	bne $4, 0xffff, fail
-#
-#	sw $0, 0($2)
-#	sw $0, 4($2)
-#	li $3, -1
-#	usw $3, 3($2)
-#	lw $4, 0($2)
-#	bne $4, 0xff000000, fail
-#	lw $4, 4($2)
-#	bne $4, 0xffffff, fail
+	.data
+usw_:	.asciiz "Testing USW\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, usw_
+	syscall
+
+	la $2, ushd
+	sw $0, 0($2)
+	sw $0, 4($2)
+	li $3, -1
+	usw $3, 0($2)
+	lw $4, 0($2)
+	bne $4, -1, fail
+	lw $4, 4($2)
+	bne $4, 0, fail
+
+	sw $0, 0($2)
+	sw $0, 4($2)
+	li $3, -1
+	usw $3, 1($2)
+	lw $4, 0($2)
+	bne $4, 0xffffff00, fail
+	lw $4, 4($2)
+	bne $4, 0xff, fail
+
+	sw $0, 0($2)
+	sw $0, 4($2)
+	li $3, -1
+	usw $3, 2($2)
+	lw $4, 0($2)
+	bne $4, 0xffff0000, fail
+	lw $4, 4($2)
+	bne $4, 0xffff, fail
+
+	sw $0, 0($2)
+	sw $0, 4($2)
+	li $3, -1
+	usw $3, 3($2)
+	lw $4, 0($2)
+	bne $4, 0xff000000, fail
+	lw $4, 4($2)
+	bne $4, 0xffffff, fail
 
 
-#	.data
-#word_:	.asciiz "Testing .WORD\n"
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, word_
-#	syscall
-#
-#	.data
-#	.align 0
-#wordd:	.byte 0x1
-#	.word 0x2345678
-#	.word 0x9abcdef
-#	.text
-#	la $2, wordd
-#	lwr $3, 1($2)
-#	lwl $3, 4($2)
-#	bne $3, 0x2345678, fail
-#	lwr $3, 5($2)
-#	lwl $3, 8($2)
-#	bne $3, 0x9abcdef, fail
-#
-#	.data
-#	.byte 0
-#x:	.word OK	# Forward reference in unaligned data!
-#	.text
-#	lw $8, x
-#	beq $8, $0, fail
+	.data
+word_:	.asciiz "Testing .WORD\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, word_
+	syscall
+
+	.data
+	.align 0
+wordd:	.byte 0x1
+	.word 0x2345678
+	.word 0x9abcdef
+	.text
+	la $2, wordd
+	lwr $3, 1($2)
+	lwl $3, 4($2)
+	bne $3, 0x2345678, fail
+	lwr $3, 5($2)
+	lwl $3, 8($2)
+	bne $3, 0x9abcdef, fail
+
+	.data
+	.byte 0
+x:	.word OK	# Forward reference in unaligned data!
+	.text
+	lw $8, x
+	beq $8, $0, fail
 
 OK:
 
