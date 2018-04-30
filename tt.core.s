@@ -5227,7 +5227,6 @@ usw_:	.asciiz "Testing USW\n"
 	lw $4, 4($2)
 	bne $4, 0xffffff, fail
 
-
 	.data
 word_:	.asciiz "Testing .WORD\n"
 	.text
