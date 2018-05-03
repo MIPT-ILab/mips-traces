@@ -5009,6 +5009,7 @@ shd_:	.byte 0, 0, 0, 0
  	.data
  swl_:	.asciiz "Testing SWL\n"
  	.align 2
+    .word 0
  swld_:	.word 0, 0
  	.text
  	li $v0, 4	# syscall 4 (print_str)
@@ -5020,28 +5021,28 @@ shd_:	.byte 0, 0, 0, 0
  	swl $3, 0($2)
  	lw $4, 0($2)
  	bne $4, 0x1, fail
- 	lw $4, 4($2)
+ 	lw $4, -4($2)
  	bnez $4, fail
 
  	li $3, 0x0102FFFF
  	swl $3, 1($2)
  	lw $4, 0($2)
  	bne $4, 0x0102, fail
- 	lw $4, 4($2)
+ 	lw $4, -4($2)
  	bnez $4, fail
 
  	li $3, 0x010203FF
  	swl $3, 2($2)
  	lw $4, 0($2)
  	bne $4, 0x010203, fail
- 	lw $4, 4($2)
+ 	lw $4, -4($2)
  	bnez $4, fail
 
  	li $3, 0x01020304
  	swl $3, 3($2)
  	lw $4, 0($2)
  	bne $4, 0x01020304, fail
- 	lw $4, 4($2)
+ 	lw $4, -4($2)
  	bnez $4, fail
 
 
