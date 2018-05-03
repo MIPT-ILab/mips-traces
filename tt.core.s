@@ -5021,28 +5021,28 @@ shd_:	.byte 0, 0, 0, 0
  	lw $4, 0($2)
  	bne $4, 0x1, fail
  	lw $4, 4($2)
- 	bnz $4, fail
+ 	bnez $4, fail
 
  	li $3, 0x0102FFFF
  	swl $3, 1($2)
  	lw $4, 0($2)
  	bne $4, 0x0102, fail
  	lw $4, 4($2)
- 	bnz $4, fail
+ 	bnez $4, fail
 
  	li $3, 0x010203FF
  	swl $3, 2($2)
  	lw $4, 0($2)
  	bne $4, 0x010203, fail
  	lw $4, 4($2)
- 	bnz $4, fail
+ 	bnez $4, fail
 
  	li $3, 0x01020304
  	swl $3, 3($2)
  	lw $4, 0($2)
  	bne $4, 0x01020304, fail
  	lw $4, 4($2)
- 	bnz $4, fail
+ 	bnez $4, fail
 
 
  	.data
