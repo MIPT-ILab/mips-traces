@@ -5016,17 +5016,17 @@ shd_:	.byte 0, 0, 0, 0
  	syscall
 
  	la $2, swld_
- 	li $3, 0x01000000
+ 	li $3, 0x01FFFFFF
  	swl $3, 0($2)
  	lw $4, 0($2)
  	bne $4, 0x1, fail
 
- 	li $3, 0x01020000
+ 	li $3, 0x0102FFFF
  	swl $3, 1($2)
  	lw $4, 0($2)
  	bne $4, 0x0102, fail
 
- 	li $3, 0x01020300
+ 	li $3, 0x010203FF
  	swl $3, 2($2)
  	lw $4, 0($2)
  	bne $4, 0x010203, fail
