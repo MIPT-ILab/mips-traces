@@ -35,6 +35,7 @@
 #           When a new instruction is implemented, it should be uncommented here!
 
 	.set noreorder
+    .set gp=32 # Do not generate 64 bit instructions
 
 	.data
 saved_ret_pc:	.word 0		#, Holds PC to return from main
