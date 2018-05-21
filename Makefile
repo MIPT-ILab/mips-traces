@@ -18,12 +18,12 @@ MIPS_LD?=mips-ld
 build_all: $(OUT_FILES)
 
 %.out: %.o
-	@$(MIPS_LD) $< -o $@
+	@$(MIPS_LD) $< -o $@ -EL
 	@chmod -x $@
 	@echo $@ is built
 
 %.o: %.s
-	@$(MIPS_AS) $< -o $@ -O0 -mips32 -no-break
+	@$(MIPS_AS) $< -o $@ -O0 -mips32 -no-break -EL
 
 # it is needed to preven make from 
 # deleting .o files automatically
