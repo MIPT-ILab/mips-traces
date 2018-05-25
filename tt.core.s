@@ -4121,8 +4121,10 @@ l135:	li $2, 1
 	bgtu $0, 1, fail
 	bgtu $2, 0, l136
 	j fail
+
 l136:	li $3, -1
-	bgtu $2, -1, fail
+# pikryukov: GNU Assembler 2.21 has a bug here
+#	bgtu $2, -1, fail
 	bgtu $3, 1, l137
 	j fail
 l137:
@@ -4187,8 +4189,9 @@ l155:	li $2, 1
 	j fail
 l156:	li $3, -1
 	bleu $3, 1, fail
-	bleu $2, -1, l157
-	j fail
+# pikryukov: GNU Assembler 2.21 has a bug here
+#	bleu $2, -1, l157
+#	j fail
 l157:
 
 
