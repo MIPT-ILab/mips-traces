@@ -11,8 +11,8 @@ ASM_FILES = $(wildcard *.s)
 # execution files 
 OUT_FILES= $(patsubst %.s,%.out,$(ASM_FILES))
 
-MIPS_AS?=mips-as
-MIPS_LD?=mips-ld
+MIPS_AS?=mips-linux-gnu-as
+MIPS_LD?=mips-linux-gnu-ld
 
 # assemble all the object files 
 build_all: $(OUT_FILES)
