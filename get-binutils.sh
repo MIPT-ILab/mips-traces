@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 # Copyright (C) 2018 Pavel Kryukov, MIPT-MIPS Project
 #
 # This script is intended to be used with CI systems, please do not run it manually.
@@ -9,5 +9,6 @@ wget http://ftp.gnu.org/gnu/binutils/binutils-2.31.tar.bz2
 tar xjf binutils-2.31.tar.bz2
 cd binutils-2.31
 ./configure --target=mips-linux-gnu --prefix=$1 --disable-gdb --disable-gprof > /dev/null
+sed -i 's/-O2/-O0/g' Makefile # Optimize compilation speed
 make all install MAKEINFO=true > /dev/null
 cd ..
