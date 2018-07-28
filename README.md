@@ -14,7 +14,18 @@ MIPS test traces for MIPT-MIPS Simulator.
 | **move.s** | **✓**  | just a single move pseudo-instruction
 | **smc.s** | ✘ | self-modifying MIPS code, modification is performed 'in-flight'
 | **static_arrays.s** | **✓**  | example of a memory-located static array
-| **tt.core.s** | **✓**  | is a part of SPIM S20 MIPS Simulator. Instructions which are not supported by MIPT-MIPS are commented out. SPIM source files are distributed under Free BSD license (see file header). Copyright (c) 1990-2010, James R. Larus. All rights reserved.
+
+### Torture tests
+
+Torture tests were developed as a part of SPIM S20 MIPS Simulator. SPIM source files are distributed under Free BSD license (see file header). Copyright (c) 1990-2010, James R. Larus. All rights reserved.
+
+We separated tests for MIPS32 and MIPS64 versions, as these architectures have different flow to initialize negative value or all-ones value.
+
+| Name |  | Description
+|:--|:-|:-----------|
+| **tt.core.universal.s** | **✓**  | Instructions which behave similarly in MIPS32 and MIPS64 |
+| **tt.core32.s** | **✓**  | MIPS32-specific version of tests |
+| **tt.core64.s** | **✓**  | MIPS64-specific version of tests |
 
 ## Getting Started
 
