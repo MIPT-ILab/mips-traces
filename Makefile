@@ -1,8 +1,6 @@
-# 
-# Building the elf_parser for MIPS ElF binaries
+# Building MIPS ElF binaries
 # @author Alexander Titov <alexander.igorevich.titov@gmail.com>
-# Copyright 2012 uArchSim iLab Project
-#
+# Copyright 2012-2018 uArchSim iLab Project
 
 # create a list of all assembly files in the current folder
 ASM_FILES = $(wildcard *.s)

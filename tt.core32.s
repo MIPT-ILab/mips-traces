@@ -1,4 +1,4 @@
-# Torture test for MIPS64 instructions
+# Torture test for MIPS32 instructions
 # Based on SPIM torture test
 #
 # Copyright (c) 1990-2018, James R. Larus, Pavel Kryukov
@@ -31,7 +31,7 @@
 #
 
 	.set noreorder
-    .set gp=64 # Do not generate 64 bit instructions
+    .set gp=32 # Do not generate 64 bit instructions
 
 	.data
 saved_ret_pc:	.word 0		#, Holds PC to return from main
@@ -306,7 +306,7 @@ bgez_:	.asciiz "Testing BGEZ\n"
 	la $a0, bgez_
 	syscall
 
-	daddiu $2, $zero, -1
+	li $2, -1
 	li $3, 1
 
 	bgez $0, l3
@@ -342,7 +342,7 @@ bgtz_:	.asciiz "Testing BGTZ\n"
 	la $a0, bgtz_
 	syscall
 
-	daddiu $2, $zero, -1
+	li $2, -1
 	li $3, 1
 
 	bgtz $0, fail
@@ -358,7 +358,7 @@ blez_:	.asciiz "Testing BLEZ\n"
 	la $a0, blez_
 	syscall
 
-	daddiu $2, $zero, -1
+	li $2, -1
 	li $3, 1
 
 	blez $0, l9
@@ -375,7 +375,7 @@ bltz_:	.asciiz "Testing BLTZ\n"
 	la $a0, bltz_
 	syscall
 
-	daddiu $2, $zero, -1
+	li $2, -1
 	li $3, 1
 
 	bltz $0, fail
@@ -391,7 +391,7 @@ bltzal_: .asciiz "Testing BLTZAL\n"
 	la $a0, bltzal_
 	syscall
 
-	daddiu $2, $zero, -1
+	li $2, -1
 	li $3, 1
 
 	bltzal $0, fail
@@ -677,11 +677,11 @@ ldd_:	.word 1, -1, 0, 0x8000000
 
 	la $2, ldd_
 	ld $3, 0($2)
-    dli $4, 0xffffffff00000001
-	bne $3, $4, fail
+	bne $3, 1, fail
+	bne $4, -1, fail
 	ld $3, 8($2)
-    dli $4, 0x0800000000000000
-	bne $3, $4, fail
+	bne $3, 0, fail
+	bne $4, 0x8000000, fail
 
 	li $v0, 4	# syscall 4 (print_str)
 	la $a0, ld2_
@@ -709,13 +709,11 @@ lhd_:	.half 1, -1, 0, 0x8000
 	lh $3, 0($2)
 	bne $3, 1, fail
 	lh $3, 2($2)
-	daddiu $4, $zero, -1
-	bne $3, $4, fail
+	bne $3, -1, fail
 	lh $3, 4($2)
 	bne $3, 0, fail
 	lh $3, 6($2)
-    daddiu $4, $zero, 0x8000
-	bne $3, $4, fail
+	bne $3, 0xffff8000, fail
 
 	li $v0, 4	# syscall 4 (print_str)
 	la $a0, lh2_
@@ -801,8 +799,7 @@ lwd_:	.word 1, -1, 0, 0x8000000
 	lw $3, 0($2)
 	bne $3, 1, fail
 	lw $3, 4($2)
-    daddiu $4, $zero, -1
-	bne $3, $4, fail
+	bne $3, -1, fail
 	lw $3, 8($2)
 	bne $3, 0, fail
 	lw $3, 12($2)
@@ -813,8 +810,7 @@ lwd_:	.word 1, -1, 0, 0x8000000
 	bne $3, 1, fail
 	addi $2, $2, 4
 	lw $3, lwd_($2)
-    daddiu $4, $zero, -1
-	bne $3, $4, fail
+	bne $3, -1, fail
 	addi $2, $2, 4
 	lw $3, lwd_($2)
 	bne $3, 0, fail
@@ -827,8 +823,7 @@ lwd_:	.word 1, -1, 0, 0x8000000
 	lw $3, -12($2)
 	bne $3, 1, fail
 	lw $3, -8($2)
-    daddiu $4, $zero, -1
-	bne $3, $4, fail
+	bne $3, -1, fail
 	lw $3, -4($2)
 	bne $3, 0, fail
 	lw $3, 0($2)
@@ -1321,13 +1316,12 @@ nor_:	.asciiz "Testing NOR\n"
 	syscall
 
 	li $2, 1
-	daddiu $3, $zero, -1
+	li $3, -1
 
 	nor $4, $0, $0
-	bne $4, $3, fail
+	bne $4, -1, fail
 	nor $4, $2, $2
-    daddiu $5, $zero, 0xfffe
-	bne $4, $5, fail
+	bne $4, 0xfffffffe, fail
 	nor $4, $2, $3
 	bne $4, 0, fail
 
@@ -1547,12 +1541,12 @@ slt_:	.asciiz "Testing SLT\n"
 	bne $3, 0, fail
 	slt $3, $0, $2
 	bne $3, 1, fail
-	daddiu $2, $zero, -1
+	li $2, -1
 	slt $3, $2, $0
 	bne $3, 1, fail
 	slt $3, $0, $2
 	bne $3, 0, fail
-	daddiu $2, $zero, -1
+	li $2, -1
 	li $4, 1
 	slt $3, $2, $4
 	bne $3, 1, fail
@@ -1572,12 +1566,12 @@ slti_:	.asciiz "Testing SLTI\n"
 	bne $3, 0, fail
 	slti $3, $0, 1
 	bne $3, 1, fail
-	daddiu $2, $zero, -1
+	li $2, -1
 	slti $3, $2, 0
 	bne $3, 1, fail
 	slti $3, $0, -1
 	bne $3, 0, fail
-	daddiu $2, $zero, -1
+	li $2, -1
 	li $4, 1
 	slti $3, $2, 1
 	bne $3, 1, fail
@@ -4019,7 +4013,7 @@ l106:	li $2, 1
 	bge $0, $2, fail
 	bge $2, $0, l107
 	j fail
-l107:	daddiu $3, $zero, -1
+l107:	li $3, -1
 	bge $3, $2, fail
 	bge $2, $3, l108
 	j fail
@@ -4031,7 +4025,7 @@ l109:	li $2, 1
 	bge $0, 1, fail
 	bge $2, 0, l110
 	j fail
-l110:	daddiu $3, $zero, -1
+l110:	li $3, -1
 	bge $3, 1, fail
 	bge $2, -1, l111
 	j fail
@@ -4051,7 +4045,7 @@ l112:	li $2, 1
 	bgeu $0, $2, fail
 	bgeu $2, $0, l113
 	j fail
-l113:	daddiu $3, $zero, -1
+l113:	li $3, -1
 	bgeu $2, $3, fail
 	bgeu $3, $2, l114
 	j fail
@@ -4063,7 +4057,7 @@ l115:	li $2, 1
 	bgeu $0, 1, fail
 	bgeu $2, 0, l116
 	j fail
-l116:	daddiu $3, $zero, -1
+l116:	li $3, -1
 	bgeu $2, -1, fail
 	bgeu $3, 1, l117
 	j fail
@@ -4082,7 +4076,7 @@ l120:	li $2, 1
 	bgt $0, $2, fail
 	bgt $2, $0, l121
 	j fail
-l121:	daddiu $3, $zero, -1
+l121:	li $3, -1
 	bgt $3, $2, fail
 	bgt $2, $3, l122
 	j fail
@@ -4093,7 +4087,7 @@ l123:	li $2, 1
 	bgt $0, 1, fail
 	bgt $2, 0, l124
 	j fail
-l124:	daddiu $3, $zero, -1
+l124:	li $3, -1
 	bgt $3, 1, fail
 	bgt $2, -1, l125
 	j fail
@@ -4112,7 +4106,7 @@ l132:	li $2, 1
 	bgtu $0, $2, fail
 	bgtu $2, $0, l133
 	j fail
-l133:	daddiu $3, $zero, -1
+l133:	li $3, -1
 	bgtu $2, $3, fail
 	bgtu $3, $2, l134
 	j fail
@@ -4123,8 +4117,10 @@ l135:	li $2, 1
 	bgtu $0, 1, fail
 	bgtu $2, 0, l136
 	j fail
-l136:	daddiu $3, $zero, -1
-	bgtu $2, $3, fail
+
+l136:	li $3, -1
+# pikryukov: GNU Assembler 2.21 has a bug here
+#	bgtu $2, -1, fail
 	bgtu $3, 1, l137
 	j fail
 l137:
@@ -4143,7 +4139,7 @@ l140:	li $2, 1
 	ble $2, $0, fail
 	ble $0, $2, l141
 	j fail
-l141:	daddiu $3, $zero, -1
+l141:	li $3, -1
 	ble $2, $3, fail
 	ble $3, $2, l142
 	j fail
@@ -4155,8 +4151,8 @@ l143:	li $2, 1
 	ble $2, 0, fail
 	ble $0, 1, l144
 	j fail
-l144:	daddiu $3, $zero, -1
-	ble $2, $3, fail
+l144:	li $3, -1
+	ble $2, -1, fail
 	ble $3, 1, l145
 	j fail
 l145:
@@ -4175,7 +4171,7 @@ l152:	li $2, 1
 	bleu $2, $0, fail
 	bleu $0, $2, l153
 	j fail
-l153:	daddiu $3, $zero, -1
+l153:	li $3, -1
 	bleu $3, $2, fail
 	bleu $2, $3, l154
 	j fail
@@ -4187,10 +4183,11 @@ l155:	li $2, 1
 	bleu $2, 0, fail
 	bleu $0, 1, l156
 	j fail
-l156:	daddiu $3, $zero, -1
+l156:	li $3, -1
 	bleu $3, 1, fail
-	bleu $2, $3, l157
-	j fail
+# pikryukov: GNU Assembler 2.21 has a bug here
+#	bleu $2, -1, l157
+#	j fail
 l157:
 
 
@@ -4206,7 +4203,7 @@ l160:	li $2, 1
 	blt $2, $0, fail
 	blt $0, $2, l161
 	j fail
-l161:	daddiu $3, $zero, -1
+l161:	li $3, -1
 	blt $2, $3, fail
 	blt $3, $2, l162
 	j fail
@@ -4217,8 +4214,8 @@ l163:	li $2, 1
 	blt $2, 0, fail
 	blt $0, 1, l164
 	j fail
-l164:	daddiu $3, $zero, -1
-	blt $2, $3, fail
+l164:	li $3, -1
+	blt $2, -1, fail
 	blt $3, 1, l165
 	j fail
 l165:
@@ -4236,7 +4233,7 @@ l172:	li $2, 1
 	bltu $2, $0, fail
 	bltu $0, $2, l173
 	j fail
-l173:	daddiu $3, $zero, -1
+l173:	li $3, -1
 	bltu $3, $2, fail
 	bltu $2, $3, l174
 	j fail
@@ -4247,9 +4244,9 @@ l175:	li $2, 1
 	bltu $2, 0, fail
 	bltu $0, 1, l176
 	j fail
-l176:	daddiu $3, $zero, -1
+l176:	li $3, -1
 	bltu $3, 1, fail
-	bltu $2, $3, l177
+	bltu $2, -1, l177
 	j fail
 l177:
 
@@ -4408,12 +4405,12 @@ not_:	.asciiz "Testing NOT\n"
 	syscall
 
 	not $2, $0
-    daddiu $4, $zero, -1
-	bne $2, $4, fail
+	bne $2, 0xffffffff, fail
 	li $2, 0
 	not $3, $2
-	bne $3, $4, fail
-	not $3, $4
+	bne $3, 0xffffffff, fail
+	li $2, 0xffffffff
+	not $3, $2
 	bne $3, 0, fail
 
 	.data
@@ -4487,6 +4484,278 @@ ror_:	.asciiz "Testing ROR\n"
 	ror $4, $2, 5
 	bne $4, 0x28000000, fail
 
+
+	.data
+seq_:	.asciiz "Testing SEQ\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, seq_
+	syscall
+
+	li $2, -1
+	li $3, 1
+
+	seq $4, $0, $0
+	beqz $4, fail
+	seq $4, $2, $3
+	bnez $4, fail
+
+	seq $4, $0, 0
+	beqz $4, fail
+	seq $4, $3, 2
+	bnez $4, fail
+
+
+	.data
+sge_:	.asciiz "Testing SGE\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, sge_
+	syscall
+
+	sge $4, $0, $0
+	beqz $4, fail
+	li $2, 1
+	sge $4, $0, $2
+	bnez $4, fail
+	sge $4, $2, $0
+	beqz $4, fail
+	li $2, -1
+	sge $4, $0, $2
+	beqz $4, fail
+	sge $4, $2, $0
+	bnez $4, fail
+
+	li $2, 1
+	sge $2, $0, $2
+	bnez $2, fail
+	li $2, 1
+	sge $2, $2, $0
+	beqz $2, fail
+	li $2, -1
+	sge $2, $0, $2
+	beqz $2, fail
+	li $2, -1
+	sge $2, $2, $0
+	bnez $2, fail
+
+	sge $4, $0, 0
+	beqz $4, fail
+	li $2, 1
+	sge $4, $0, 1
+	bnez $4, fail
+	sge $4, $2, 0
+	beqz $4, fail
+	li $2, -1
+	sge $4, $0, -1
+	beqz $4, fail
+	sge $4, $2, 0
+	bnez $4, fail
+
+
+	.data
+sgeu_:	.asciiz "Testing SGEU\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, sgeu_
+	syscall
+
+	sgeu $4, $0, $0
+	beqz $4, fail
+	li $2, 1
+	sgeu $4, $0, $2
+	bnez $4, fail
+	sgeu $4, $2, $0
+	beqz $4, fail
+	li $2, -1
+	sgeu $4, $0, $2
+	bnez $4, fail
+	sgeu $4, $2, $0
+	beqz $4, fail
+
+	sgeu $4, $0, 0
+	beqz $4, fail
+	li $2, 1
+	sgeu $4, $0, 1
+	bnez $4, fail
+	sgeu $4, $2, 0
+	beqz $4, fail
+	li $2, -1
+	sgeu $4, $0, -1
+	bnez $4, fail
+	sgeu $4, $2, 0
+	beqz $4, fail
+
+
+	.data
+sgt_:	.asciiz "Testing SGT\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, sgt_
+	syscall
+
+	sgt $4, $0, $0
+	bnez $4, fail
+	li $2, 1
+	sgt $4, $0, $2
+	bnez $4, fail
+	sgt $4, $2, $0
+	beqz $4, fail
+	li $2, -1
+	sgt $4, $0, $2
+	beqz $4, fail
+	sgt $4, $2, $0
+	bnez $4, fail
+
+	sgt $4, $0, 0
+	bnez $4, fail
+	sgt $4, $0, 1
+	bnez $4, fail
+	li $2, 1
+	sgt $4, $2, 0
+	beqz $4, fail
+	sgt $4, $0, -1
+	beqz $4, fail
+	li $2, -1
+	sgt $4, $2, 0
+	bnez $4, fail
+
+	.data
+sgtu_:	.asciiz "Testing SGTU\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, sgtu_
+	syscall
+
+	sgtu $4, $0, $0
+	bnez $4, fail
+	li $2, 1
+	sgtu $4, $0, $2
+	bnez $4, fail
+	sgtu $4, $2, $0
+	beqz $4, fail
+	li $2, -1
+	sgtu $4, $0, $2
+	bnez $4, fail
+	sgtu $4, $2, $0
+	beqz $4, fail
+
+	sgtu $4, $0, 0
+	bnez $4, fail
+	sgtu $4, $0, 1
+	bnez $4, fail
+	li $2, 1
+	sgtu $4, $2, 0
+	beqz $4, fail
+	sgtu $4, $0, -1
+	bnez $4, fail
+	li $2, -1
+	sgtu $4, $2, 0
+	beqz $4, fail
+
+
+	.data
+sle_:	.asciiz "Testing SLE\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, sle_
+	syscall
+
+	sle $4, $0, $0
+	beqz $4, fail
+	li $2, 1
+	sle $4, $0, $2
+	beqz $4, fail
+	sle $4, $2, $0
+	bnez $4, fail
+	li $2, -1
+	sle $4, $0, $2
+	bnez $4, fail
+	sle $4, $2, $0
+	beqz $4, fail
+
+	li $2, 1
+	sle $2, $0, $2
+	beqz $2, fail
+	li $2, 1
+	sle $2, $2, $0
+	bnez $2, fail
+	li $2, -1
+	sle $2, $0, $2
+	bnez $2, fail
+	li $2, -1
+	sle $2, $2, $0
+	beqz $2, fail
+
+	sle $4, $0, 0
+	beqz $4, fail
+	li $2, 1
+	sle $4, $0, 1
+	beqz $4, fail
+	sle $4, $2, 0
+	bnez $4, fail
+	li $2, -1
+	sle $4, $0, -1
+	bnez $4, fail
+	sle $4, $2, 0
+	beqz $4, fail
+
+
+	.data
+sleu_:	.asciiz "Testing SLEU\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, sleu_
+	syscall
+
+	sleu $4, $0, $0
+	beqz $4, fail
+	li $2, 1
+	sleu $4, $0, $2
+	beqz $4, fail
+	sleu $4, $2, $0
+	bnez $4, fail
+	li $2, -1
+	sleu $4, $0, $2
+	beqz $4, fail
+	sleu $4, $2, $0
+	bnez $4, fail
+
+	sleu $4, $0, 0
+	beqz $4, fail
+	li $2, 1
+	sleu $4, $0, 1
+	beqz $4, fail
+	sleu $4, $2, 0
+	bnez $4, fail
+	li $2, -1
+	sleu $4, $0, -1
+	beqz $4, fail
+	sleu $4, $2, 0
+	bnez $4, fail
+
+
+	.data
+sne_:	.asciiz "Testing SNE\n"
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, sne_
+	syscall
+
+	li $2, -1
+	li $3, 1
+
+	sne $4, $0, $0
+	bnez $4, fail
+	sne $4, $2, $3
+	beqz $4, fail
+
+	sne $4, $0, 0
+	bnez $4, fail
+	sne $4, $3, 2
+	beqz $4, fail
+
+
 # ULH is endian-specific
 
 
@@ -4521,13 +4790,11 @@ lbd1_:	.word 0x76543210, 0xfedcba98
 	lb $3, 0($2)
 	bne $3, 1, fail
 	lb $3, 1($2)
-    daddiu $4, $zero, -1
-	bne $3, $4, fail
+	bne $3, -1, fail
 	lb $3, 2($2)
 	bne $3, 0, fail
 	lb $3, 3($2)
-    daddiu $4, $zero, -128
-	bne $3, $4, fail
+	bne $3, 0xffffff80, fail
 
 	la $t0, lbd1_
 	lb $t1, 0($t0)
@@ -4539,17 +4806,13 @@ lbd1_:	.word 0x76543210, 0xfedcba98
 	lb $t1, 3($t0)
 	bne $t1, 0x76, fail
 	lb $t1, 4($t0)
-    daddiu $4, $zero, -104
-	bne $t1, $4, fail
+	bne $t1, 0xffffff98, fail
 	lb $t1, 5($t0)
-    daddiu $4, $zero, -70
-	bne $t1, $4, fail
+	bne $t1, 0xffffffba, fail
 	lb $t1, 6($t0)
-    daddiu $4, $zero, -36
-	bne $t1, $4, fail
+	bne $t1, 0xffffffdc, fail
 	lb $t1, 7($t0)
-    daddiu $4, $zero, -2
-	bne $t1, $4, fail
+	bne $t1, 0xfffffffe, fail
 
 	li $v0, 4	# syscall 4 (print_str)
 	la $a0, m5
@@ -4939,44 +5202,37 @@ ushd:	.word 0, 0
  	la $2, ushd
  	sw $0, 0($2)
  	sw $0, 4($2)
- 	daddi $3, $zero, -1
+ 	li $3, -1
  	usw $3, 0($2)
  	lw $4, 0($2)
-    daddi $5, $zero, -1
- 	bne $4, $5, fail
+ 	bne $4, -1, fail
  	lw $4, 4($2)
  	bne $4, 0, fail
 
  	sw $0, 0($2)
  	sw $0, 4($2)
- 	daddi $3, $zero, -1
+ 	li $3, -1
  	usw $3, 1($2)
  	lw $4, 0($2)
-    daddi $5, $zero, -1
-    dsll $5, $5, 8
- 	bne $4, $5, fail
+ 	bne $4, 0xffffff00, fail
  	lw $4, 4($2)
  	bne $4, 0xff, fail
 
  	sw $0, 0($2)
  	sw $0, 4($2)
- 	daddi $3, $zero, -1
+ 	li $3, -1
  	usw $3, 2($2)
  	lw $4, 0($2)
-    daddi $5, $zero, -1
-    dsll $5, $5, 16
- 	bne $4, $5, fail
+ 	bne $4, 0xffff0000, fail
  	lw $4, 4($2)
  	bne $4, 0xffff, fail
 
  	sw $0, 0($2)
  	sw $0, 4($2)
- 	daddi $3, $zero, -1
+ 	li $3, -1
  	usw $3, 3($2)
  	lw $4, 0($2)
-    daddi $5, $zero, -1
-    dsll $5, $5, 24
- 	bne $4, $5, fail
+ 	bne $4, 0xff000000, fail
  	lw $4, 4($2)
  	bne $4, 0xffffff, fail
 
@@ -4995,7 +5251,6 @@ wordd:	.byte 0x1
 	.word 0x9abcdef
 	.text
 	la $2, wordd
-    or $3, $zero, $zero
 	lwr $3, 1($2)
 	lwl $3, 4($2)
 	bne $3, 0x2345678, fail
