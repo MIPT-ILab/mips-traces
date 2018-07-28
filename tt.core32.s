@@ -665,33 +665,6 @@ la_:	.asciiz "Testing LA\n"
 
 # LBU is endian-specific
 
-
-	.data
-ld_:	.asciiz "Testing LD\n"
-ld2_:	.asciiz "Expect four address error exceptions:\n"
-ldd_:	.word 1, -1, 0, 0x8000000
-	.text
-	li $v0, 4	# syscall 4 (print_str)
-	la $a0, ld_
-	syscall
-
-	la $2, ldd_
-	ld $3, 0($2)
-	bne $3, 1, fail
-	bne $4, -1, fail
-	ld $3, 8($2)
-	bne $3, 0, fail
-	bne $4, 0x8000000, fail
-
-	li $v0, 4	# syscall 4 (print_str)
-	la $a0, ld2_
-	syscall
-
-	li $t5, 0x7fffffff
-	ld $3, 1000($t5)
-	ld $3, 1001($t5)
-
-
 # LDC2 not tested
 
 # LWC2 not tested
@@ -1370,7 +1343,7 @@ spd_:   .space 100000
 spde_:  .word 0
 	.text
 	li $v0, 4	# syscall 4 (print_str)
-	la $a0, sd_
+	la $a0, sll_
 	syscall
 
         la $2, spde_
@@ -1379,34 +1352,6 @@ spde_:  .word 0
 
 
 # SB is endian-specific
-
-
-	.data
-sd_:	.asciiz "Testing SD\n"
-sd2_:	.asciiz "Expect two address error exceptions:\n"
-	.align 2
-sdd_:	.word 0, 0, 0, 0
-	.text
-	li $v0, 4	# syscall 4 (print_str)
-	la $a0, sd_
-	syscall
-
-	li $3, 0x7f7f7f7f
-	li $4, 0xf7f7f7f7
-	la $2, sdd_
-	sd $3, 0($2)
-	ld $5, 0($2)
-	bne $3, $5, fail
-	bne $4, $4, fail
-
-	li $v0, 4	# syscall 4 (print_str)
-	la $a0, sd2_
-	syscall
-
-	li $t5, 0x7fffffff
-	sd $3, 1000($t5)
-	sd $3, 1001($t5)
-
 
 #	.data
 #swc1_:	.asciiz "Testing SWC1\n"
