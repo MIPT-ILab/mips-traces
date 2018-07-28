@@ -23,7 +23,7 @@ build_all: $(OUT_FILES)
 	@echo $@ is built
 
 %.o: %.s
-	@$(MIPS_AS) $< -o $@ -O0 -mips32 -no-break -EL
+	@$(MIPS_AS) $< -o $@ -O0 -mips64 -no-break -EL
 
 # it is needed to preven make from 
 # deleting .o files automatically
