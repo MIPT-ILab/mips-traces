@@ -964,37 +964,37 @@ mul_:	.asciiz "Testing MUL\n"
 	mflo $3
 	bne $3, 0, fail
 
-#	.data
-#mulo_:	.asciiz "Testing MULO\n"
-#mulo1_:	.asciiz "Expect an exception:\n	 "
-#	.text
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, mulo_
-#	syscall
-#
-#	mulo $2, $0, $0
-#	bne $2, 0, fail
-#
-#	li $4, 1
-#	mulo $2, $4, $4
-#	bne $2, 1, fail
-#
-#	li $4, -1
-#	mulo $2, $4, $4
-#	bne $2, 1, fail
-#
-#	li $4, -1
-#	li $5, 1
-#	mulo $2, $4, $5
-#	bne $2, -1, fail
-#
-#	li $v0, 4	# syscall 4 (print_str)
-#	la $a0, mulo1_
-#	syscall
-#
-#	li $4, 0x10000
-#	mulo $2, $4, $4
-#	bne $2, 0, fail
+	.data
+mulo_:	.asciiz "Testing MULO\n"
+mulo1_:	.asciiz "Expect an exception:\n	 "
+	.text
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, mulo_
+	syscall
+
+	mulo $2, $0, $0
+	bne $2, 0, fail
+
+	li $4, 1
+	mulo $2, $4, $4
+	bne $2, 1, fail
+
+	li $4, -1
+	mulo $2, $4, $4
+	bne $2, 1, fail
+
+	li $4, -1
+	li $5, 1
+	mulo $2, $4, $5
+	bne $2, -1, fail
+
+	li $v0, 4	# syscall 4 (print_str)
+	la $a0, mulo1_
+	syscall
+
+	li $4, 0x10000
+	mulo $2, $4, $4
+	bne $2, 0, fail
 
 	.data
 or_:	.asciiz "Testing OR\n"
