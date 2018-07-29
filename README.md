@@ -24,8 +24,10 @@ We separated tests for MIPS32 and MIPS64 versions, as these architectures have d
 | Name |  | Description
 |:--|:-|:-----------|
 | **tt.core.universal.s** | **✓**  | Instructions which behave similarly in MIPS32 and MIPS64 |
-| **tt.core32.s** | **✓**  | MIPS32-specific version of tests |
+| **tt.core32.s** | **✓**  | Tests MIPS32-specific instruction behavior |
+| **tt.core32.le.s** | **✓**  | Tests MIPS32-specific and little-endian instruction behavior |
 | **tt.core64.s** | **✓**  | MIPS64-specific version of tests |
+| **tt.core64.le.s** | **✓**  | Tests MIPS64-specific and little-endian instruction behavior |
 
 ## Getting Started
 
