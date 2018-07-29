@@ -194,26 +194,6 @@ addi_:	.asciiz "Testing ADDI\n"
 	addi $4, $4, -1
 	bnez $4, fail
 
-
-	.data
-addiu_:	.asciiz "Testing ADDIU\n"
-	.text
-	li $v0, 4	# syscall 4 (print_str)
-	la $a0, addiu_
-	syscall
-
-	addiu $4, $0, 0
-	bnez $4, fail
-	addiu $4, $0, 1
-	bne $4, 1, fail
-	addiu $4, $4, -1
-	bnez $4, fail
-
-#	li $2, 0x7fffffff
-#	addiu $2, $2, 2	# should not trap
-#	bne $2, 0x80000001, fail
-
-
 	.data
 addu_:	.asciiz "Testing ADDU\n"
 	.text
@@ -297,117 +277,6 @@ come_back:
 	li $2, 3
 l2_1:	sub $2, $2, 1
 	bnez $2, l2_1
-
-
-	.data
-bgez_:	.asciiz "Testing BGEZ\n"
-	.text
-	li $v0, 4	# syscall 4 (print_str)
-	la $a0, bgez_
-	syscall
-
-#	li $2, -1
-	li $3, 1
-
-	bgez $0, l3
-	j fail
-l3:	bgez $3, l4
-	j fail
-l4:
-#	bgez $2, fail
-
-
-	.data
-bgezal_:.asciiz "Testing BGEZAL\n"
-	.text
-	li $v0, 4	# syscall 4 (print_str)
-	la $a0, bgezal_
-	syscall
-
-	li $2, -1
-	li $3, 1
-
-	bgezal $0, l5
-	j fail
-	bgezal $2, fail
-l5:	bgezal $3, l6
-l55:	j fail
-l6:	la $4, l55
-	bne $31, $4, fail
-
-
-	.data
-bgtz_:	.asciiz "Testing BGTZ\n"
-	.text
-	li $v0, 4	# syscall 4 (print_str)
-	la $a0, bgtz_
-	syscall
-
-#	li $2, -1
-	li $3, 1
-
-	bgtz $0, fail
-l7:	bgtz $3, l8
-	j fail
-l8:
-#   bgtz $2, fail
-
-
-	.data
-blez_:	.asciiz "Testing BLEZ\n"
-	.text
-	li $v0, 4	# syscall 4 (print_str)
-	la $a0, blez_
-	syscall
-
-#	li $2, -1
-	li $3, 1
-
-	blez $0, l9
-	j fail
-l9:
-#   blez $2, l10
-#	j fail
-#l10:
-	blez $3, fail
-
-
-	.data
-bltz_:	.asciiz "Testing BLTZ\n"
-	.text
-	li $v0, 4	# syscall 4 (print_str)
-	la $a0, bltz_
-	syscall
-
-#	li $2, -1
-	li $3, 1
-
-	bltz $0, fail
-l11:
-#	bltz $2, l12
-#	j fail
-#l12:
-	bltz $3, fail
-
-
-	.data
-bltzal_: .asciiz "Testing BLTZAL\n"
-	.text
-	li $v0, 4	# syscall 4 (print_str)
-	la $a0, bltzal_
-	syscall
-
-#	li $2, -1
-	li $3, 1
-
-	bltzal $0, fail
-	bltzal $3, fail
-l13: jal l15 #	bltzal $2, l15
-l14:
-	j fail
-l15:	la $4, l14
-	bne $31, $4, fail
-
 
 	.data
 bne_:	.asciiz "Testing BNE\n"
@@ -666,17 +535,6 @@ la_:	.asciiz "Testing LA\n"
 	la $5, 10($4)
 	bne $5, 111, fail
 
-
-# LB is endian-specific
-
-# LBU is endian-specific
-
-# LDC2 not tested
-
-# LWC2 not tested
-
-# LH is skipped
-
 	.data
 lhu_:	.asciiz "Testing LHU\n"
 lh2_:	.asciiz "Expect two address error exceptions:\n"
@@ -741,16 +599,6 @@ lui_:	.asciiz "Testing LUI\n"
 	addiu $2, $2, 1
 	andi $2, $2, 0xffff
 	bne $2, $0, fail
-
-
-# LW is skipped
-
-
-# LWL is endian-specific
-
-
-# LWR is endian-specific
-
 
 	.data
 madd_:	.asciiz "Testing MADD\n"
@@ -1116,73 +964,6 @@ mul_:	.asciiz "Testing MUL\n"
 	mflo $3
 	bne $3, 0, fail
 
-
-	.data
-multu_:	.asciiz "Testing MULTU\n"
-	.text
-	li $v0, 4	# syscall 4 (print_str)
-	la $a0, multu_
-	syscall
-
-	multu $0, $0
-	mfhi $3
-	bnez $3, fail
-	mflo $3
-	bnez $3, fail
-
-	li $4, 1
-	multu $4, $4
-	mfhi $3
-	bnez $3, fail
-	mflo $3
-	bne $3, 1, fail
-
-	li $4, -1
-	multu $4, $4
-	mfhi $3
-	bne $3, 0xfffffffe, fail
-	mflo $3
-	bne $3, 1, fail
-
-	li $4, -1
-	li $5, 0
-	multu $4, $5
-	mfhi $3
-	bne $3, 0, fail
-	mflo $3
-	bne $3, 0, fail
-
-	li $4, -1
-	li $5, 1
-	multu $4, $5
-	mfhi $3
-	bne $3, 0, fail
-	mflo $3
-	bne $3, -1, fail
-
-	li $4, 0x10000
-	multu $4, $4
-	mfhi $3
-	bne $3, 1, fail
-	mflo $3
-	bne $3, 0, fail
-
-	li $4, 0x80000000
-	multu $4, $4
-	mfhi $3
-	bne $3, 0x40000000, fail
-	mflo $3
-	bne $3, 0, fail
-
-#	li $3, 0xcecb8f27
-#	li $4, 0xfd87b5f2
-#	multu $3, $4
-#	mfhi $3
-#	bne $3, 0xcccccccb, fail
-#	mflo $3
-#	bne $3, 0x7134e5de, fail
-
-
 #	.data
 #mulo_:	.asciiz "Testing MULO\n"
 #mulo1_:	.asciiz "Expect an exception:\n	 "
@@ -1214,8 +995,6 @@ multu_:	.asciiz "Testing MULTU\n"
 #	li $4, 0x10000
 #	mulo $2, $4, $4
 #	bne $2, 0, fail
-
-# NOR is skipped
 
 	.data
 or_:	.asciiz "Testing OR\n"
@@ -1261,7 +1040,7 @@ spd_:   .space 100000
 spde_:  .word 0
 	.text
 	li $v0, 4	# syscall 4 (print_str)
-	la $a0, sll_
+	la $a0, sllv_
 	syscall
 
         la $2, spde_
@@ -1346,28 +1125,6 @@ spde_:  .word 0
 #	lw $5, 4($2)
 #	bne $5, $4, fail
 
-
-# SDC2 not tested
-
-	.data
-sll_:	.asciiz "Testing SLL\n"
-	.text
-	li $v0, 4	# syscall 4 (print_str)
-	la $a0, sll_
-	syscall
-
-	li $2, 1
-
-	sll $3, $2, 0
-	bne $3, 1, fail
-	sll $3, $2, 1
-	bne $3, 2, fail
-	sll $3, $2, 16
-	bne $3, 0x10000, fail
-#	sll $3, $2, 31
-#	bne $3, 0x80000000, fail
-
-
 	.data
 sllv_:	.asciiz "Testing SLLV\n"
 	.text
@@ -1388,12 +1145,6 @@ sllv_:	.asciiz "Testing SLLV\n"
 	li $4, 32
 	sllv $3, $2, $4
 	bne $3, 1, fail
-
-
-# SLT is skipped
-
-# SLTI is skipped
-
 
 	.data
 sltiu_:	.asciiz "Testing SLTIU\n"
@@ -1445,51 +1196,6 @@ sltu_:	.asciiz "Testing SLTU\n"
 	li $4, 1
 	sltu $3, $2, $4
 	bne $3, 0, fail
-
-
-	.data
-sra_:	.asciiz "Testing SRA\n"
-	.text
-	li $v0, 4	# syscall 4 (print_str)
-	la $a0, sra_
-	syscall
-
-	li $2, 1
-	sra $3, $2, 0
-	bne $3, 1, fail
-	sra $3, $2, 1
-	bne $3, 0, fail
-	li $2, 0x1000
-	sra $3, $2, 4
-	bne $3, 0x100, fail
-#	li $2, 0x80000000
-#	sra $3, $2, 4
-#	bne $3, 0xf8000000, fail
-
-
-	.data
-srav_:	.asciiz "Testing SRAV\n"
-	.text
-	li $v0, 4	# syscall 4 (print_str)
-	la $a0, srav_
-	syscall
-
-	li $2, 1
-	li $4, 0
-	srav $3, $2, $4
-	bne $3, 1, fail
-	li $4, 1
-	srav $3, $2, $4
-	bne $3, 0, fail
-	li $2, 0x1000
-	li $4, 4
-	srav $3, $2, $4
-	bne $3, 0x100, fail
-#	li $2, 0x80000000
-#	li $4, 4
-#	srav $3, $2, $4
-#	bne $3, 0xf8000000, fail
-
 
 	.data
 srl_:	.asciiz "Testing SRL\n"
@@ -1915,24 +1621,6 @@ xor_:	.asciiz "Testing XOR\n"
 	bne $4, 0, fail
 	xor $4, $2, $3
 	bne $4, 0xfffffffe, fail
-
-	.data
-xori_:	.asciiz "Testing XORI\n"
-	.text
-	li $v0, 4	# syscall 4 (print_str)
-	la $a0, xori_
-	syscall
-
-	li $2, 1
-	li $3, -1
-
-	xori $4, $0, 0
-	bne $4, 0, fail
-#	xori $4, $3, 0xffff
-#	bne $4, 0xffff0000, fail
-	xori $4, $2, 0xffff
-	bne $4, 0x0000fffe, fail
-
 
 #
 # Testing Floating Point Ops
@@ -3815,8 +3503,6 @@ beqz_:	.asciiz "Testing BEQZ\n"
 l105:	li $2, 1
 	beqz $2, fail
 
-# BGE is skipped
-
 	.data
 bgeu_:	.asciiz "Testing BGEU\n"
 	.text
@@ -3848,8 +3534,6 @@ l116:	li $3, -1
 	j fail
 l117:
 
-# BGT is skipped
-
 	.data
 bgtu_:	.asciiz "Testing BGTU\n"
 	.text
@@ -3880,8 +3564,6 @@ l136:	li $3, -1
 	bgtu $3, 1, l137
 	j fail
 l137:
-
-# BLE is skipped
 
 	.data
 bleu_:	.asciiz "Testing BLEU\n"
@@ -4092,9 +3774,6 @@ nop_:	.asciiz "Testing NOP\n"
 
 	nop		# How, do, we test it??
 
-
-# NOT is skipped
-
 	.data
 rem_:	.asciiz "Testing REM\n"
 	.text
@@ -4186,8 +3865,6 @@ seq_:	.asciiz "Testing SEQ\n"
 	seq $4, $3, 2
 	bnez $4, fail
 
-# SGE is skipped
-
 	.data
 sgeu_:	.asciiz "Testing SGEU\n"
 	.text
@@ -4222,8 +3899,6 @@ sgeu_:	.asciiz "Testing SGEU\n"
 	beqz $4, fail
 
 
-# SGT is skipped
-
 	.data
 sgtu_:	.asciiz "Testing SGTU\n"
 	.text
@@ -4256,9 +3931,6 @@ sgtu_:	.asciiz "Testing SGTU\n"
 	li $2, -1
 	sgtu $4, $2, 0
 	beqz $4, fail
-
-# SLE is skipped
-
 
 	.data
 sleu_:	.asciiz "Testing SLEU\n"
@@ -4313,24 +3985,6 @@ sne_:	.asciiz "Testing SNE\n"
 	bnez $4, fail
 	sne $4, $3, 2
 	beqz $4, fail
-
-
-# ULH is endian-specific
-
-
-# ULHU is endian-specific
-
-
-# ULW is endian-specific
-
-
-# USH is endian-specific
-
-
-# USW is endian-specific
-
-
-# .WORD is endian-specific
 
 OK:
 
