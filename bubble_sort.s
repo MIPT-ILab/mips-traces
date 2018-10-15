@@ -29,9 +29,9 @@
 	badnum_data: .asciiz "Bad number of elements: it must be positive integer. "
 	printarr_data: .asciiz "Input array :"
 	
-	is_static: .word 0
-	num: .word 6
-	arr: .word 6 , 3 , -1 , 3 , 0 , 112
+	is_static: .word 1
+	num: .word 20
+	arr: .word 75 , 25 , 72 , -8 , 65 , -95 , 100 , 79 , -25 , -63 , -16 , 72 , -10 , 33 , -19 , 15 , -53 , -89 , 0 , -34
 .text
 main:
 # Because of lack of scanf function and sbrk syscall in current version, it is necessary to use
