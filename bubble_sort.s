@@ -1,3 +1,9 @@
+# Copyright (C) 2018 Yauheni Sharamed
+# This program is a part of MIPT-MIPS source code
+# distributed under terms of MIT License
+#
+# MIPT-MIPS web site: http://mipt-ilab.github.io/mipt-mips/
+#
 # This is realisation of basic bubble sort algorithm.
 # Prototype: void bubble_sort(int* arr , int num)
 # num - number of elements in array, num < 536870911
