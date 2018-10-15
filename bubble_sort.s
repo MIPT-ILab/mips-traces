@@ -38,7 +38,8 @@ main:
 # static array (arr) and predefined number of elements (num).
 # If is_static != 0 then the static block is executed
 # If is_static == 0 then the block with scanf and memory allocation is executed
-
+	
+	li	$sp , 0x30000			# initialization of sp
 	lw	$t0 , is_static			# t0 = is_static
 	bne	$t0 , $zero , static		# if t0 != 0 go to static
 
