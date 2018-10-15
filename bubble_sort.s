@@ -13,11 +13,13 @@
 	insertarr: .word insertarr_data
 	resbody: .word resbody_data
 	res: .word res_data
+	badnum: .word badnum_data
  
 	numberofelem_data: .asciiz "Number of elements in array: "
 	insertarr_data: .asciiz "Elements of array:"
 	resbody_data: .asciiz "Sorted array: "
 	res_data: .asciiz " "
+	badnum_data: .asciiz "Bad number of elements: it must be positive integer. "
 
 	num: .word 0
 .text
@@ -32,7 +34,18 @@ main:
 	li 	$v0 , 5 		# code of read_int
 	syscall				# call scanf for int
 	sw 	$v0 , num		# store to num
-
+	
+	# check if num >= 1
+	li  	$t0 , 1			# t0 = 1
+	bge	$v0 , $t0 , goodnumber	# if num >= t0 goto goodnumber to continue program
+	li	$v0 , 4			# code of print_string
+	la	$t0 , badnum		# load address of badnum
+	lw	$a0 , ($t0)		# load data from t0 to a0
+	syscall				# calling printf
+	li	$v0 , 10		# code of exit
+	syscall
+	goodnumber:
+	
 	# alloc memory for num integers
 	li 	$v0 , 9			# code of sbrk
 	lw 	$a0 , num		# load number of elements
@@ -95,6 +108,13 @@ main:
 	syscall
 
 
+
+
+.data
+	errormsg:	.word errormsg_data
+	
+	errormsg_data:	.asciiz "Error in array sorting."
+
 .text
 bubble_sort:
 	# for(i = 0 , i < num - 1 , i++)
@@ -103,7 +123,13 @@ bubble_sort:
 	#			swap(a[j] , a[j + 1])
 	
         # There are array address in a0 and number of elements in a1
-
+	# First we need to check is number of elements more than 1. If not, array doesn't need to be sorted
+	li	$t0 , 1			# t0 = 1
+	bgt	$a1 , $t0 , needtosort	# if num > 1 go to need to sort
+	jr	$ra			# return
+	needtosort:	
+	
+	# Sort section
 	move	$t2 , $a0		# t2 = a0 - it is a current array pointer
 	li      $t0 , 1                 # t0 = 1 - first counter
 	forsort1:			# begining of first for
@@ -123,12 +149,28 @@ bubble_sort:
 		blt	$t1 , $a1 , forsort2	# condition of second for
 		add 	$t0 , $t0 , 1		# t0++ - counter
 	blt	$t0 , $a1 , forsort1	# condition of first for
+	
 
+	# simple check of sorting array
+	li	$t0 , 1			# t0 = 1 - counter
+	move 	$t1 , $a0		# t1 = address of array
+	forsortcheck:			# begining of for_check
+		lw	$t2 , ($t1)		# t2 = *t1
+		add	$t1 , $t1 , 4		# t1 += sizeof(int)
+		lw	$t3 , ($t1)		# t3 = *t1
+		bgt	$t2 , $t3 , sortmistake	# if t2 > t3 go to sortmistake to print error
+		add	$t0 , $t0 , 1		# t0++
+	blt	$t0 , $a1 , forsortcheck	# condition of for_check
 
 	jr $ra
 
-
-
+	sortmistake:
+	#print error message
+	li	$v0 , 4			# print_string code
+	la	$t0 , errormsg		# load address of errormsg
+	lw	$a0 , ($t0)		# load data from t0   to a0
+	syscall				# call print_string
+	sw	$zero , ($zero)		# cause exception
 
 
 
