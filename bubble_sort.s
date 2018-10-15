@@ -29,7 +29,7 @@
 	badnum_data: .asciiz "Bad number of elements: it must be positive integer. "
 	printarr_data: .asciiz "Input array :"
 	
-	is_static: .word 1
+	is_static: .word 0
 	num: .word 6
 	arr: .word 6 , 3 , -1 , 3 , 0 , 112
 .text
@@ -156,8 +156,8 @@ main:
         blt     $t0 , $t3 , printsortarr     # condtiton of for
 
 	# exit
+        lw      $ra , ($sp)             # restore ar
 	addi	$sp , $sp , 4		# sp += sizeof(int)
-	lw	$ra , ($sp)		# restore ar
 	li 	$v0 , 10		# code of exit
 	syscall
 
