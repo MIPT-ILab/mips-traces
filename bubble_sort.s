@@ -18,18 +18,32 @@
  	numberofelem: .word numberofelem_data
 	insertarr: .word insertarr_data
 	resbody: .word resbody_data
-	res: .word res_data
+	space: .word space_data
 	badnum: .word badnum_data
+	printarr: .word printarr_data
  
 	numberofelem_data: .asciiz "Number of elements in array: "
 	insertarr_data: .asciiz "Elements of array:"
 	resbody_data: .asciiz "Sorted array: "
-	res_data: .asciiz " "
+	space_data: .asciiz " "
 	badnum_data: .asciiz "Bad number of elements: it must be positive integer. "
-
-	num: .word 0
+	printarr_data: .asciiz "Input array :"
+	
+	is_static: .word 1
+	num: .word 6
+	arr: .word 6 , 3 , -1 , 3 , 0 , 112
 .text
 main:
+# Because of lack of scanf function and sbrk syscall in current version, it is necessary to use
+# static array (arr) and predefined number of elements (num).
+# If is_static != 0 then the static block is executed
+# If is_static == 0 then the block with scanf and memory allocation is executed
+
+	lw	$t0 , is_static			# t0 = is_static
+	bne	$t0 , $zero , static		# if t0 != 0 go to static
+
+
+# BEGIGING OF scanf AND sbrk BLOCK
 	# printf numberofelem
 	la      $t0, numberofelem 	# load address of msgprompt into $t0
   	lw      $a0, 0($t0)       	# load data from address in $t0 into $a0
@@ -63,20 +77,54 @@ main:
 	# printf insertarr
         la      $t0, insertarr		# load address of insertarr into $t0
         lw      $a0, 0($t0)             # load data from address in $t0 into $a0
-        li      $v0, 4                  # code of print_string
+        li	$v0, 4                  # code of print_string
         syscall  
 
 	# scanf num elements of array
-	li 	$t0 , 0			# t0 = 1 - counter
-	lw 	$t3 , num		# t3 = num
+	li 	$t0 , 0			# t0 = 0 - counter
+	lw 	$t3 , num		# t3 = num#	
 	scanarr:			# beginig of for
-		li 	$v0 , 5			# code of read_int
+		li	$v0 , 5			# code if read_int
 		syscall				# call scanf for int
 		sw 	$v0 , ($s0) 		# store int to the t1
 		add 	$s0 , $s0 , 4		# t1 += sizeof(int)
 		add 	$t0 , $t0 , 1		# t0++
 	blt 	$t0 , $t3 , scanarr	# condtiton of for
+	b	end_of_is_static
+# END OF scanf AND sbrk BLOCK
 
+	
+# STATIC ARRAY BLOCK
+	
+	static:
+
+	# saving address of array
+	la	$s0 , arr		# load array address in s0
+	la	$s1 , arr		# load array address in s1
+	
+	# Printing input array
+	li	$v0 , 4			# code of print string
+	la	$t0 , printarr		# load address of printarr to t0
+	lw	$a0 , ($t0)		# load data from t0
+	syscall
+
+	li      $t0 , 0                 # t0 = 0 - counter
+        lw      $t3 , num               # t3 = num     
+        showinputarr:                       # beginig of for
+                li      $v0 , 1                 # code if print_int
+		lw	$a0 , ($s0)		# a0 = *s0
+                syscall                         # call print for int
+                add     $s0 , $s0 , 4           # s0 += sizeof(int)
+                add     $t0 , $t0 , 1           # t0++
+		#print space
+		li	$v0 , 4			# code of print string
+		la	$t7 , space		# load address of spase if t6
+		lw	$a0 , ($t7)		# load data from address in t6
+		syscall				# call printf space
+        blt     $t0 , $t3 , showinputarr    # condtiton of for
+# END OF STATIC ARRAY BLOCK
+
+	end_of_is_static:
 	# now we have number of elements in num and address of array in s1
 	# calling bubble_sort
 	addi	$sp , $sp , -4		# move stack pointer on 1 word
@@ -95,9 +143,9 @@ main:
 	#print res
 	li      $t0 , 0                 # t0 = 1 - counter
         lw      $t3 , num               # t3 = num
-        printarr:                        # beginig of for
+        printsortarr:                        # beginig of for
                 li      $v0 , 4                 # code of print_string
-		la	$t7 , res		# load address of res in $t7
+		la	$t7 , space		# load address of res in $t7
 		lw	$a0 , ($t7)		# load data from address in $t7 to $a0
 		syscall				# print " "
 		li	$v0 , 1
@@ -105,7 +153,7 @@ main:
                 syscall                         # call print for int
                 add     $s1 , $s1 , 4           # t1 += sizeof(int)
                 add     $t0 , $t0 , 1           # t0++
-        blt     $t0 , $t3 , printarr     # condtiton of for
+        blt     $t0 , $t3 , printsortarr     # condtiton of for
 
 	# exit
 	addi	$sp , $sp , 4		# sp += sizeof(int)
