@@ -26,3 +26,4 @@ just_space: .space 160  # It is not required to initialize the variables.
     la  $t3, best_nums # it says write the start address of the array "best_nums"
                        # into register $t3
     lw  $t2, 4($t3) # load the 2nd element of "best_nums" into $t2 
+    jr  $zero
