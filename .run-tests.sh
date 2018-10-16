@@ -24,7 +24,6 @@ run_test mips32 static_arrays.out
 
 # Do something more complicated
 run_test mips32 bubble_sort.out
-run_test_limited mips32 curry.out
 run_test_limited mips32 factorial.out
 run_test_limited mips32 fib.out
 run_test_limited mips32 sqrt.out
