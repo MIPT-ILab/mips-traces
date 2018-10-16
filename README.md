@@ -1,11 +1,13 @@
-MIPS test traces for MIPT-MIPS Simulator.
+[![Build Status](https://travis-ci.com/MIPT-ILab/mips-traces.svg?branch=master)](https://travis-ci.com/MIPT-ILab/mips-traces)
 
+MIPS test traces for MIPT-MIPS Simulator.
 
 ## Traces
 
 | Name |  | Description
 |:--|:-|:-----------|
 | **add.s** | **✓** | simplest test for add instruction
+| **bubble_sort.s** | **✓** | bubble sort of 20 integers, contains a lot of branches
 | **corner.s** | **?** | naughty/corner cases from our debug experience
 | **factorial.s** | ✘ | recursive implementation of factorial
 | **fib.s** | **✓**  | loop implementation of Fibonacci numbers
