@@ -25,6 +25,7 @@
  
 .text
 main:
+  la      $sp, 0x300000
   # printing the prompt
   #printf("Positive integer: ");
   la      $t0, msgprompt    # load address of msgprompt into $t0
