@@ -16,7 +16,7 @@ MIPS_LD?=mips-linux-gnu-ld
 
 # assemble all the object files 
 build_all: $(OUT_FILES)
-tt: $(OUT_TT_FILES) smc.out
+tt: $(OUT_TT_FILES) smc.out fib.out
 
 %.out: %.o
 	@$(MIPS_LD) $< -o $@ -EL
