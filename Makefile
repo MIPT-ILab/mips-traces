@@ -8,12 +8,15 @@ ASM_FILES = $(wildcard *.s)
 # using names of the assembly files create a list of output 
 # execution files 
 OUT_FILES= $(patsubst %.s,%.out,$(ASM_FILES))
+TT_FILES= $(wildcard tt.*.s)
+OUT_TT_FILES= $(patsubst %.s,%.out,$(TT_FILES))
 
 MIPS_AS?=mips-linux-gnu-as
 MIPS_LD?=mips-linux-gnu-ld
 
 # assemble all the object files 
 build_all: $(OUT_FILES)
+tt: $(OUT_TT_FILES) smc.out
 
 %.out: %.o
 	@$(MIPS_LD) $< -o $@ -EL
