@@ -16,6 +16,7 @@ MIPS test traces for MIPT-MIPS Simulator.
 | **move.s** | **✓**  | just a single move pseudo-instruction
 | **smc.s** | ✘ | self-modifying MIPS code, modification is performed 'in-flight'
 | **static_arrays.s** | **✓**  | example of a memory-located static array
+| **syscalls.s** | ✘ | example of syscalls
 
 ### Torture tests
 
