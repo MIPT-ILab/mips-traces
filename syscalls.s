@@ -1,29 +1,19 @@
-.data
-	str: .asciiz "MIPT-MIPS supports syscalls!\n"
-
 .text
 
 .global __start
  __start:
- 	# Print integer
+	# Read integer
+	li $v0, 5
+	syscall
+	
+	# Increment and print
+	add $a0, $v0, 1
  	li $v0, 1
-	li $a0, 1337
 	syscall
 
 	# Print character
 	li $v0, 11
 	li $a0, 0xA # '\n'
-	syscall
-
-	# Print string
-	li $v0, 4
-	li $a0, str
-	syscall
-
-	# File IO syscalls coming later
-
-	# Read character
-	li $v0, 12
 	syscall
 
 	# Exit
