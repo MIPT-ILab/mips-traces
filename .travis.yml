@@ -25,6 +25,7 @@ addons:
     - ninja-build
 
 install:
+  - pip install --user future
   - sudo apt-get install binutils-mips-linux-gnu --allow-unauthenticated
 
 before_script:
