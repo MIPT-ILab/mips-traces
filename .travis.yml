@@ -9,7 +9,7 @@ branches:
   - master
 
 compiler:
-  - gcc
+  - clang
 os:
   - linux
 
@@ -21,7 +21,7 @@ addons:
     update: true
     packages:
     - libboost-dev
-    - libstdc++-7
+    - libstdc++-7-dev
     - ninja-build
 
 install:
@@ -30,7 +30,7 @@ install:
 before_script:
   - git clone https://github.com/mipt-ilab/mipt-mips --depth=1
   - mkdir sim && cd sim
-  - CXX=clang cmake $TRAVIS_BUILD_DIR/mipt-mips/simulator -DCMAKE_BUILD_TYPE=Debug -G Ninja && ninja
+  - cmake $TRAVIS_BUILD_DIR/mipt-mips/simulator -DCMAKE_BUILD_TYPE=Debug -G Ninja && ninja
   - cd ..
 
 script:
