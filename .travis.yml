@@ -29,7 +29,7 @@ install:
   - sudo apt-get install binutils-mips-linux-gnu --allow-unauthenticated
 
 before_script:
-  - git clone https://github.com/mipt-ilab/mipt-mips --depth=1
+  - git clone https://github.com/mipt-ilab/mipt-mips --depth=1 --recursive
   - mkdir sim && cd sim
   - cmake $TRAVIS_BUILD_DIR/mipt-mips/simulator -DCMAKE_BUILD_TYPE=Debug -G Ninja && ninja
   - cd ..
