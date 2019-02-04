@@ -5,9 +5,9 @@
 # To get MIPS GNU Binutils, please follow this instruction: 
 # https://github.com/MIPT-ILab/mipt-mips/wiki/MIPS-binutils
 
-wget http://ftp.gnu.org/gnu/binutils/binutils-2.31.tar.bz2
-tar xjf binutils-2.31.tar.bz2
-cd binutils-2.31
+wget http://ftp.gnu.org/gnu/binutils/binutils-2.32.tar.bz2
+tar xjf binutils-2.32.tar.bz2
+cd binutils-2.32
 ./configure --target=mips-linux-gnu --prefix=$1 --disable-gdb --disable-gprof > /dev/null
 sed -i 's/-O2/-O0/g' Makefile # Optimize compilation speed
 make all install MAKEINFO=true > /dev/null
