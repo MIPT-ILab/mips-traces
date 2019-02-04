@@ -21,7 +21,7 @@ addons:
     update: true
     packages:
     - libboost-dev
-    - libstc++-7
+    - libstdc++-7
     - ninja-build
 
 install:
