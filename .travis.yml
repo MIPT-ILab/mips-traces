@@ -1,14 +1,15 @@
 notifications:
   email: false
 
-sudo: true
+language: cpp
+dist: xenial
 
 branches:
   only:
   - master
 
 compiler:
-  - gcc
+  - clang
 os:
   - linux
 
@@ -19,16 +20,18 @@ addons:
     - sourceline: deb http://www.emdebian.org/debian/ squeeze main
     update: true
     packages:
-    - g++-7
     - libboost-dev
+    - libstdc++-7-dev
+    - ninja-build
 
 install:
+  - pip install --user future
   - sudo apt-get install binutils-mips-linux-gnu --allow-unauthenticated
 
 before_script:
-  - git clone https://github.com/mipt-ilab/mipt-mips
+  - git clone https://github.com/mipt-ilab/mipt-mips --depth=1 --recursive
   - mkdir sim && cd sim
-  - CXX=g++-7 cmake $TRAVIS_BUILD_DIR/mipt-mips/simulator -DCMAKE_BUILD_TYPE=Debug && make
+  - cmake $TRAVIS_BUILD_DIR/mipt-mips/simulator -DCMAKE_BUILD_TYPE=Debug -G Ninja && ninja
   - cd ..
 
 script:
