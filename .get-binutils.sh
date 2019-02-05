@@ -9,6 +9,5 @@ wget http://ftp.gnu.org/gnu/binutils/binutils-2.32.tar.bz2
 tar xjf binutils-2.32.tar.bz2
 cd binutils-2.32
 ./configure --target=mips-linux-gnu --prefix=$1 --disable-gdb --disable-gprof > /dev/null
-sed -i 's/-O2/-O0/g' Makefile # Optimize compilation speed
-make all install MAKEINFO=true > /dev/null
+make all install MAKEINFO=true CFLAGS='-w -O0' CXXFLAGS='-w -O0' > /dev/null
 cd ..
