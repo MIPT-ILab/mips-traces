@@ -30,7 +30,6 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-	.set noreorder
     .set gp=32 # Do not generate 64 bit instructions
 
 	.data
@@ -167,7 +166,6 @@ add_:	.asciiz "Testing ADD\n"
 	.text
 	li $v0, 4	# syscall 4 (print_str)
 	la $a0, add_
-	break
 	syscall
 
 	li $2, 1

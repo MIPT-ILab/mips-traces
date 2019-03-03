@@ -24,7 +24,7 @@ tt: $(OUT_TT_FILES) smc.out fib.out
 	@echo $@ is built
 
 %.o: %.s
-	@$(MIPS_AS) $< -o $@ -O0 -mips64 -no-break -EL
+	@$(MIPS_AS) $< -o $@ -O0 -mips64 -no-break -EL -g
 
 # it is needed to preven make from 
 # deleting .o files automatically
