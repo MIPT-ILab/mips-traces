@@ -32,16 +32,17 @@ run_test_limited mips32 sqrt.out
 run_test mips32 corner_cases.out
 run_test mips32 smc.out
 
-# Torture tests, MIPS32, no delayed branches
+# Torture tests without delayed branches
 run_test mars tt.core.universal.out
 run_test mars tt.core32.le.out
+run_test mars tt.core32.out
+run_test mars64 tt.core.universal.out
+run_test mars64 tt.core64.le.out
+run_test mars64 tt.core64.out
 
 # Torture tests, MIPS32, little-endian
 run_test mips32 tt.core.universal_reorder.out
 run_test mips32 tt.core32.le_reorder.out
-run_test mips32 tt.core32.out
 
 # Torture tests, MIPS64, little-endian
 run_test mips64 tt.core.universal_reorder.out
-run_test mips64 tt.core64.le.out
-run_test mips64 tt.core64.out
