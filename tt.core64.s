@@ -467,7 +467,11 @@ sll_:	.asciiz "Testing SLL\n"
 	sll $3, $2, 16
 	bne $3, 0x10000, fail
 	sll $3, $2, 31
-	bne $3, 0x80000000, fail
+    li  $4, 0xffffffff
+    dsll32 $5, $4, 0
+    li  $4, 0x80000000
+    or $4, $5, $4
+	bne $3, $4, fail
 
 	.data
 slt_:	.asciiz "Testing SLT\n"
@@ -536,7 +540,11 @@ sra_:	.asciiz "Testing SRA\n"
 	bne $3, 0x100, fail
 	li $2, 0x80000000
 	sra $3, $2, 4
-	bne $3, 0xf8000000, fail
+    li  $6, 0xffffffff
+    dsll32 $5, $6, 0
+    li  $6, 0xf8000000
+    or $6, $5, $6
+	bne $3, $6, fail
 
 
 	.data
@@ -560,7 +568,11 @@ srav_:	.asciiz "Testing SRAV\n"
 	li $2, 0x80000000
 	li $4, 4
 	srav $3, $2, $4
-	bne $3, 0xf8000000, fail
+    li  $6, 0xffffffff
+    dsll32 $5, $6, 0
+    li  $6, 0xf8000000
+    or $6, $5, $6
+	bne $3, $6, fail
 
 	.data
 xori_:	.asciiz "Testing XORI\n"

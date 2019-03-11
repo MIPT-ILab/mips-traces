@@ -494,7 +494,8 @@ ulh2_:	.byte 0xff, 0xff
 	bne $3, 0x0605, fail
 	la $2, ulh2_
 	ulh $3, 0($2)
-	bne $3, -1, fail
+    daddi $4, $zero, -1
+	bne $3, $4, fail
 
 
 	.data
