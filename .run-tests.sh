@@ -8,13 +8,13 @@ export MIPT_MIPS=$1
 run_test()
 {
     echo -n "running $2 on ISA $1..."
-    $MIPT_MIPS -f -I $1 -b $2 && echo " success" || exit 1
+    $MIPT_MIPS -f -I $1 -b $2 --mars && echo " success" || exit 1
 }
 
 run_test_limited()
 {
     echo -n "running $2 on ISA $1..."
-    $MIPT_MIPS -f -I $1 -b $2 -n 1000 && echo " success" || exit 1
+    $MIPT_MIPS -f -I $1 -b $2 -n 1000 --mars && echo " success" || exit 1
 }
 
 # Start with primitive stuff
@@ -24,7 +24,7 @@ run_test mips32 static_arrays.out
 
 # Do something more complicated
 run_test mips32 bubble_sort.out
-run_test_limited mips32 factorial.out
+echo 10 | run_test_limited mips32 factorial.out
 run_test_limited mips32 fib.out
 run_test_limited mips32 sqrt.out
 
