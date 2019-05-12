@@ -17,11 +17,6 @@ run_test_limited()
     $MIPT_MIPS -f -I $1 -b $2 -n 1000 --mars && echo " success" || exit 1
 }
 
-# Start with primitive stuff
-run_test mips32 move.out
-run_test mips32 add.out
-run_test mips32 static_arrays.out
-
 # Do something more complicated
 run_test mips32 bubble_sort.out
 echo 10 | run_test_limited mips32 factorial.out
