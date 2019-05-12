@@ -8,13 +8,13 @@ export MIPT_MIPS=$1
 run_test()
 {
     echo -n "running $2 on ISA $1..."
-    $MIPT_MIPS -f -I $1 -b $2 && echo " success" || exit 1
+    $MIPT_MIPS -f -I $1 -b $2 --mars && echo " success" || exit 1
 }
 
 run_test_limited()
 {
     echo -n "running $2 on ISA $1..."
-    $MIPT_MIPS -f -I $1 -b $2 -n 1000 && echo " success" || exit 1
+    $MIPT_MIPS -f -I $1 -b $2 -n 1000 --mars && echo " success" || exit 1
 }
 
 # Start with primitive stuff
