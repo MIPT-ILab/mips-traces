@@ -2,30 +2,25 @@ notifications:
   email: false
 
 language: cpp
-dist: xenial
+dist: bionic
 
 branches:
   only:
   - master
 
-compiler:
-  - clang
-os:
-  - linux
+os: linux
 
 addons:
   apt:
     sources:
-    - ubuntu-toolchain-r-test
     - sourceline: deb http://www.emdebian.org/debian/ squeeze main
     update: true
     packages:
     - libboost-dev
-    - libstdc++-7-dev
     - ninja-build
+    - python3
 
 install:
-  - pip install --user future
   - sudo apt-get install binutils-mips-linux-gnu --allow-unauthenticated
 
 before_script:
@@ -37,4 +32,3 @@ before_script:
 script:
   - make
   - ./.run-tests.sh $TRAVIS_BUILD_DIR/sim/mipt-mips
-
